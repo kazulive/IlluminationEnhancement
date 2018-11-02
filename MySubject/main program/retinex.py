@@ -1,7 +1,3 @@
-"""
-Variational Retinex Model関数
-エネルギー関数の最小化問題
-"""
 import cv2
 import numpy as np
 from division import *
@@ -16,6 +12,9 @@ def culcFFT(img, sum):
     ifimg = ifimg.real
     return ifimg
 
+############################################################################
+##                       Variational Retinex Model                        ##
+############################################################################
 def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, channel, imgName, dirNameR, dirNameL):
     # 3チャネル用処理
     if(channel == 3):
@@ -39,14 +38,6 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
         gdelta = delta + gamma
         fdimage = delta
         fgdimage = gdelta
-
-        ############################################################################
-        ##                           FFT用配列                                    ##
-        ############################################################################
-        flimage = np.zeros((H, W, 3), np.float32)
-        iflimage = np.zeros((H, W, 3), np.float32)
-        frimage = np.zeros((H, W, 3), np.float32)
-        ifrimage = np.zeros((H, W, 3), np.float32)
 
         ############################################################################
         ##                           微分オペレータ                               ##
@@ -105,9 +96,6 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
             maxg = np.maximum(lg, g)
             maxr = np.maximum(lr, r)
             luminance = cv2.merge((maxb, maxg, maxr))
-
-            #cv2.imwrite(dirNameR + "reflectance0" + imgName + "_iteration_" + str(count) + ".bmp", cv2.divide((255*img).astype(dtype = np.uint8), (255*luminance).astype(dtype = np.uint8), scale=255).astype(dtype = np.uint8))
-            #cv2.imwrite(dirNameL + "luminance0" + imgName + "_iteration_" + str(count) + ".bmp", (luminance*255).astype(dtype=np.uint8))
 
     # 1チャネル用処理
     else:
@@ -176,24 +164,17 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
 
             # I / Lの計算 その後、分割
             IL = division((img * 255).astype(dtype=np.float32), (255 * luminance).astype(dtype=np.float32))
-            #IL = division(img.astype(dtype=np.float32), luminance.astype(dtype=np.float32))
 
             reflectance = culcFFT(IL, sumR)
             reflectance = reflectance.copy()
             cv2.normalize(reflectance, reflectance, 0, 1, cv2.NORM_MINMAX)
-            #cv2.imwrite("result/reflectance" + str(count) + ".jpg", (255 * reflectance).astype(dtype=np.uint8))
 
             IR = division((img * 255).astype(dtype=np.float32), (255 * reflectance).astype(dtype=np.float32))
-            #IR = division(img.astype(dtype=np.float32), reflectance.astype(dtype=np.float32))
             IR += gamma * bright
 
             luminance = culcFFT(IR, sumL)
             luminance = luminance.copy()
             cv2.normalize(luminance, luminance, 0, 1, cv2.NORM_MINMAX)
             luminance = np.maximum(luminance, img)
-
-            #cv2.imshow("reflectance", (255 * reflectance).astype(dtype=np.uint8))
-            #cv2.imshow("luminance", luminance.astype(dtype = np.uint8))
-            #cv2.waitKey()
 
     return reflectance, luminance
