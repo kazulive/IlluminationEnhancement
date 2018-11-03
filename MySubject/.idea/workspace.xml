@@ -45,11 +45,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/main program/.gitignore">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main program/testdata/BMP/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="6" lean-forward="false" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+            <state relative-caret-position="119">
+              <caret line="7" column="6" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main program/testdata/JPEG/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -90,6 +100,8 @@
         <option value="$PROJECT_DIR$/main program/GUM.py" />
         <option value="$PROJECT_DIR$/main program/main.py" />
         <option value="$PROJECT_DIR$/main program/.gitignore" />
+        <option value="$PROJECT_DIR$/main program/testdata/BMP/.gitignore" />
+        <option value="$PROJECT_DIR$/main program/testdata/JPEG/.gitignore" />
       </list>
     </option>
   </component>
@@ -142,6 +154,26 @@
               <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
               <item name="MySubject" type="462c0819:PsiDirectoryNode" />
               <item name="main program" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MySubject" type="462c0819:PsiDirectoryNode" />
+              <item name="main program" type="462c0819:PsiDirectoryNode" />
+              <item name="testdata" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MySubject" type="462c0819:PsiDirectoryNode" />
+              <item name="main program" type="462c0819:PsiDirectoryNode" />
+              <item name="testdata" type="462c0819:PsiDirectoryNode" />
+              <item name="BMP" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MySubject" type="462c0819:PsiDirectoryNode" />
+              <item name="main program" type="462c0819:PsiDirectoryNode" />
+              <item name="testdata" type="462c0819:PsiDirectoryNode" />
+              <item name="JPEG" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
@@ -343,8 +375,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/retinex.py" />
-    <entry file="file://$PROJECT_DIR$/main.py" />
-    <entry file="file://$PROJECT_DIR$/retinex.py" />
     <entry file="file://$PROJECT_DIR$/brightChannel.py" />
     <entry file="file://$PROJECT_DIR$/guidedfilter.py" />
     <entry file="file://$PROJECT_DIR$/devision.py" />
@@ -491,6 +521,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main program/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="6" lean-forward="false" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main program/generaized_unsharp_mask.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
@@ -501,10 +539,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main program/.gitignore">
+    <entry file="file://$PROJECT_DIR$/main program/testdata/BMP/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="6" lean-forward="false" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+        <state relative-caret-position="119">
+          <caret line="7" column="6" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main program/testdata/JPEG/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
