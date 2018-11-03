@@ -1,18 +1,18 @@
 # -*- coding:utf-8 -*-
-############################################################################
-##                     同じディレクトリにあるファイル                     ##
-############################################################################
 import cv2
 import os
 import numpy as np
 import time
 
+############################################################################
+##                     同じディレクトリにあるファイル                     ##
+############################################################################
 from division import *
 from guidedfilter import *
-from brightChannel import *
-from retinex import *
+from bright_channel import *
+from variational_retinex import *
 from gradient_fusion import *
-from fusion import *
+from multi_fusion import *
 
 def main(imgName, iteration, dirNameF, dirNameR, dirNameL):
     img = cv2.imread("testdata/BMP/0" + imgName + ".bmp")
