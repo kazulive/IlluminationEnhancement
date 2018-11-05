@@ -1,11 +1,12 @@
 #coding: utf-8
 
-#############################################################################
-##                          3つの定量的数値評価                            ##
-##                          1. Mean(平均値)                                ##
-##                          2. Clarify(明瞭さ)                             ##
-##                          3. CCI(カラフルさ)                             ##
-#############################################################################
+"""""""""
+定量的数値評価
+Mean : 平均輝度の評価
+Clarity : 画像の明瞭度の評価
+CCI(Color Colorfulness Index) : 画像のカラフルさの評価
+Entropy : 画像の情報量の評価
+"""""""""
 
 import cv2
 import numpy as np
@@ -33,7 +34,7 @@ def Mean(img):
 #############################################################################
 ##                         明瞭度(CLARIFY)                                 ##
 #############################################################################
-def Clarify(img, dst):
+def Clarity(img, dst):
     sigmaImg = np.std(img)
     sigmaDst = np.std(dst)
     return np.log10(sigmaDst / (sigmaImg + sigmaDst)) - np.log10(1/2)
@@ -82,7 +83,7 @@ if __name__ == '__main__':
         fout.writelines("Mean = " + str(Mean(result)) + "\n")
 
         print('----Clarify----')
-        print('Clarify : ', Clarify(img, result))
+        print('Clarify : ', Clarity(img, result))
         fout.writelines("Clarify = " + str(Clarify(img, result)) + "\n")
 
         print('----Color Colorfulness Index----')

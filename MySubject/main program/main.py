@@ -7,7 +7,6 @@ import time
 ############################################################################
 ##                     同じディレクトリにあるファイル                     ##
 ############################################################################
-from division import *
 from guidedfilter import *
 from bright_channel import *
 from variational_retinex import *
@@ -44,7 +43,7 @@ def main(imgName, iteration, dirNameF, dirNameR, dirNameL):
     ##                              Guided Filter                             ##
     ############################################################################
     print('----Guided Filter----')
-    bright = guidedFilter(img, bright, 7, 0.001)
+    bright = guidedFilter(img, bright, 8, 0.16)
     bright = bright.astype(dtype=np.float32)
 
     ############################################################################
@@ -59,15 +58,19 @@ def main(imgName, iteration, dirNameF, dirNameR, dirNameL):
     ##                         Variational Retinex Model                      ##
     ############################################################################
     channel = len(img.shape)
-    reflectance, luminance = variationalRetinex(img, init_luminance, bright, 10.0, 0.1, 0.001, iteration, channel, imgName, dirNameR, dirNameL)
+    reflectance, luminance = variationalRetinex(img, init_luminance, bright, 10.0, 0.1, 0.9, iteration, channel, imgName, dirNameR, dirNameL)
 
     ############################################################################
     ##                       Proposal Multi Fusion                            ##
     ############################################################################
+    cv2.imshow("Conv Luminance", (255 * luminance).astype(dtype=np.uint8))
+    cv2.imshow("Conv Result", (255 * reflectance).astype(dtype = np.uint8))
+
+    result = (255 * luminance) + (255 * reflectance)
+    cv2.normalize(result, result, 0, 255, cv2.NORM_MINMAX)
+    cv2.imshow("Result", (result).astype(dtype=np.uint8))
     luminance = (255 * luminance).astype(dtype=np.uint8)
     cv2.normalize(luminance, luminance, 0, 255, cv2.NORM_MINMAX)
-    cv2.imshow("Conv Result", reflectance)
-
     luminance_result = component_fusion(luminance, imgName, dirNameF)
     cv2.normalize(luminance_result, luminance_result, 0, 1, cv2.NORM_MINMAX)
     cv2.normalize(img, img, 0, 1, cv2.NORM_MINMAX)
@@ -90,13 +93,13 @@ if __name__ == '__main__':
     dirNameR = "result/reflectance/" + dirName + "/"
     dirNameL = "result/luminance/" + dirName + "/"
     dirNameF = "result/final_Image/prop/" + dirName + "/"
-    fout = open("evaluate_data/speed_time.txt", "w")
-    if not os.path.exists(dirNameR):
-        os.mkdir(dirNameR)
-    if not os.path.exists(dirNameL):
-        os.mkdir(dirNameL)
-    if not os.path.exists(dirNameF):
-        os.mkdir(dirNameF)
+    fout = open("speed_time.txt", "w")
+    #if not os.path.exists(dirNameR):
+    #    os.mkdir(dirNameR)
+    #if not os.path.exists(dirNameL):
+    #    os.mkdir(dirNameL)
+    #if not os.path.exists(dirNameF):
+    #    os.mkdir(dirNameF)
     i = int(imgName)
     f = int(finName)
 

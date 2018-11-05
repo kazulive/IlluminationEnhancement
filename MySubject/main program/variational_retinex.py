@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
-from division import *
+
+
 
 ############################################################################
 ##                       各チャネルのFFT計算                              ##
@@ -44,7 +45,7 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
         ############################################################################
         sobel_x = np.array([[-1, 0, 1],
                             [-1, 0, 1],
-                            [-1, 0, 1]])
+                            [-1,  0, 1]])
 
         sobel_y = np.array([[-1, -1, -1],
                             [0, 0, 0],
@@ -65,7 +66,7 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
         ############################################################################
         ##                           R, Lの計算時の分母　                         ##
         ############################################################################
-        sum = np.square(fsx_mag_spectrum) + np.square(fsy_mag_spectrum)
+        sum = fsx_mag_spectrum**2 + fsy_mag_spectrum**2
         sumR = fdimage + beta * sum
         sumL = fgdimage + alpha * sum
 
@@ -84,9 +85,9 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
 
             IR = cv2.divide((img * 255).astype(dtype=np.float32), (255 * reflectance).astype(dtype=np.float32))
             IRB, IRG, IRR = cv2.split(IR)
-            IRB += gamma * bright
-            IRG += gamma * bright
-            IRR += gamma * bright
+            IRB += gamma * (255 * bright)
+            IRG += gamma * (255 * bright)
+            IRR += gamma * (255 * bright)
 
             luminance = cv2.merge((culcFFT(IRB, sumL), culcFFT(IRG, sumL), culcFFT(IRR, sumL)))
             cv2.normalize(luminance, luminance, 0, 1, cv2.NORM_MINMAX)
