@@ -79,23 +79,19 @@ def LOE(img, dst):
     L = cv2.max(cv2.max(b, g), r)
     Le = cv2.max(cv2.max(db, dg), dr)
 
-    r = 50 / np.min((H, W))
+    r = 10.0 / np.min((H, W))
     Md = np.int(np.round((H * r)))
     Nd = np.int(np.round((W * r)))
     Ld = cv2.resize(L, (Nd, Md))
     Led = cv2.resize(Le, (Nd, Md))
 
     RD = np.zeros((Md, Nd))
-    for y in range(0, Md-1):
-        for x in range(0, Nd-1):
-            E = 0
-            for m in range(0, Md-1):
-                for n in range(0, Nd-1):
-                    if(Ld[y][x] >= Ld[m][n] and Led[y][x] < Led[m][n]):
-                        E += 1
-                    elif(Ld[y][x] < Ld[m][n] and Led[y][x] >= Led[m][n]):
-                        E += 1
-            RD[y][x] = E
+    for y in range(0, Md):
+        for x in range(0, Nd):
+            E = np.zeros((Md, Nd))
+            E = (Ld[y][x] >= Ld[:, :]) ^ (Led[y][x] >= Led[:, :])
+            num = len(np.where(E == True)[0])
+            RD[y][x] = num
     return np.sum(RD) / (Md * Nd)
 
 
@@ -168,10 +164,11 @@ if __name__ == '__main__':
         print('Entropy : ', image_entropy(result_gray))
         fout.writelines("Entropy = " + str(image_entropy(result_gray)) + "\n")
 
-        print('----GMSD----')
-        print('GMSD : ', GMSD(result_gray, img_gray))
-        fout.writelines("GMSD = " + str(GMSD(result_gray, img_gray)) + "\n\n")
-        #print('----LOE----')
-        #print('LOE : ', LOE(img, result))
+        #print('----GMSD----')
+        #print('GMSD : ', GMSD(result_gray, img_gray))
+        #fout.writelines("GMSD = " + str(GMSD(result_gray, img_gray)) + "\n\n")
+        print('----LOE----')
+        print('LOE : ', LOE(img, result))
+        fout.writelines("LOE = " + str(LOE(img, result)) + "\n\n")
         i += 1
     print("---Program End----")
