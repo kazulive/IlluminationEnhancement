@@ -4,11 +4,11 @@ from unsharpmask import *
 from shrink import *
 import numpy as np
 
-def sum(img, img_adjusted, img_clahe, img_unsharp):
+def sum(img_adjusted, img_clahe, img_unsharp):
     ############################################################################
     ##                           画像の足し合わせ                             ##
     ############################################################################
-    result = cv2.add(img, cv2.add(cv2.add(0.2*img_clahe, 0.2*img_unsharp), 0.6*img_adjusted) / 3.0)
+    result = cv2.add(cv2.add(0.2*img_clahe, 0.2*img_unsharp), 0.6*img_adjusted)
     return result
 
 def component_fusion(luminance, imgName, dirName):
@@ -68,9 +68,9 @@ def component_fusion(luminance, imgName, dirName):
     lb_clahe, lg_clahe, lr_clahe = cv2.split(luminance_clahe)
     lb_unsharp, lg_unsharp, lr_unsharp = cv2.split(luminance_unsharp)
 
-    result_b = sum(lb, (255*lb_adjusted), lb_clahe, lb_unsharp)
-    result_g = sum(lg, (255*lg_adjusted), lg_clahe, lg_unsharp)
-    result_r = sum(lr, (255*lr_adjusted), lr_clahe, lr_unsharp)
+    result_b = sum((255*lb_adjusted), lb_clahe, lb_unsharp)
+    result_g = sum((255*lg_adjusted), lg_clahe, lg_unsharp)
+    result_r = sum((255*lr_adjusted), lr_clahe, lr_unsharp)
 
     cv2.normalize(result_b, result_b, 0, 255, cv2.NORM_MINMAX)
     cv2.normalize(result_g, result_g, 0, 255, cv2.NORM_MINMAX)

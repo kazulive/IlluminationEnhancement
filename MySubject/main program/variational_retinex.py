@@ -24,6 +24,8 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
         ##                           各処理の前準備                               ##
         ############################################################################
         count = 0
+        eps_r = 0.0
+        eps_l = 0.0
         # BGR分割
         b, g, r = cv2.split(img)
         # 画像サイズ
@@ -43,13 +45,13 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
         ############################################################################
         ##                           微分オペレータ                               ##
         ############################################################################
-        sobel_x = np.array([[-1, 0, 1],
-                            [-1, 0, 1],
-                            [-1,  0, 1]])
+        sobel_x = np.array([[1, 0, -1],
+                            [1, 0, -1],
+                            [1,  0, -1]])
 
-        sobel_y = np.array([[-1, -1, -1],
+        sobel_y = np.array([[1, 1, 1],
                             [0, 0, 0],
-                            [1, 1, 1]])
+                            [-1, -1, -1]])
 
         ############################################################################
         ##                           F(dx), F(dy)                                 ##
@@ -85,9 +87,9 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
 
             IR = cv2.divide((img * 255).astype(dtype=np.float32), (255 * reflectance).astype(dtype=np.float32))
             IRB, IRG, IRR = cv2.split(IR)
-            IRB += gamma * (255 * bright)
-            IRG += gamma * (255 * bright)
-            IRR += gamma * (255 * bright)
+            IRB += gamma * (bright)
+            IRG += gamma * (bright)
+            IRR += gamma * (bright)
 
             luminance = cv2.merge((culcFFT(IRB, sumL), culcFFT(IRG, sumL), culcFFT(IRR, sumL)))
             cv2.normalize(luminance, luminance, 0, 1, cv2.NORM_MINMAX)
@@ -97,6 +99,16 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
             maxg = np.maximum(lg, g)
             maxr = np.maximum(lr, r)
             luminance = cv2.merge((maxb, maxg, maxr))
+
+            reflectance_prev = reflectance.copy()
+            luminance_prev = luminance.copy()
+
+            #eps_r = cv2.divide(np.abs(reflectance - reflectance_prev), np.abs(reflectance))
+            #eps_l = cv2.divide(np.abs(luminance - luminance_prev), np.abs(luminance_prev))
+
+            #if(eps_r <= 0.1 and eps_l <= 0.1):
+            #    print('Variational Retinex End')
+            #    break
 
     # 1チャネル用処理
     else:
@@ -118,14 +130,6 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
         gdelta = delta + gamma
         fdimage = delta
         fgdimage = gdelta
-
-        ############################################################################
-        ##                           FFT用配列                                    ##
-        ############################################################################
-        flimage = np.zeros((H, W), np.float32)
-        iflimage = np.zeros((H, W), np.float32)
-        frimage = np.zeros((H, W), np.float32)
-        ifrimage = np.zeros((H, W), np.float32)
 
         ############################################################################
         ##                           微分オペレータ                               ##

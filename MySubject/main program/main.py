@@ -20,8 +20,6 @@ def main(imgName, iteration, dirNameF, dirNameR, dirNameL):
     ##                           画像サイズ、配列定義                         ##
     ############################################################################
     H, W = img.shape[0], img.shape[1]
-    result = np.zeros((H, W, 3), np.uint8)
-
     start = time.time()
     ############################################################################
     ##                           照明成分の初期化                             ##
@@ -30,7 +28,6 @@ def main(imgName, iteration, dirNameF, dirNameR, dirNameL):
     luminance = cv2.GaussianBlur(img, (7, 7), 2.0)
     img = img.astype(dtype=np.float32)
     luminance = luminance.astype(dtype=np.float32)
-
     cv2.normalize(img, img, 0, 1, cv2.NORM_MINMAX)
     ############################################################################
     ##                            Bright Channel生成                          ##
@@ -38,14 +35,13 @@ def main(imgName, iteration, dirNameF, dirNameR, dirNameL):
     print('----Get Bright Channel----')
     bright = getBrightChannel(img, 3)
     cv2.normalize(img, img, 0, 1, cv2.NORM_MINMAX)
-
     ############################################################################
     ##                              Guided Filter                             ##
     ############################################################################
     print('----Guided Filter----')
     bright = guidedFilter(img, bright, 8, 0.16)
     bright = bright.astype(dtype=np.float32)
-
+    cv2.imshow("Bright", bright)
     ############################################################################
     ##                                正規化                                  ##
     ############################################################################
@@ -53,24 +49,19 @@ def main(imgName, iteration, dirNameF, dirNameR, dirNameL):
     cv2.normalize(bright, bright, 0, 1, cv2.NORM_MINMAX)
     cv2.normalize(luminance, luminance, 0, 1, cv2.NORM_MINMAX)
     init_luminance= luminance.copy()
-
     ############################################################################
     ##                         Variational Retinex Model                      ##
     ############################################################################
     channel = len(img.shape)
-    reflectance, luminance = variationalRetinex(img, init_luminance, bright, 10.0, 0.1, 0.9, iteration, channel, imgName, dirNameR, dirNameL)
+    reflectance, luminance = variationalRetinex(img, init_luminance, bright, 100.0, 0.01, 0.9, iteration, channel, imgName, dirNameR, dirNameL)
+    #cv2.imshow("Conv Luminance", (255 * luminance).astype(dtype = np.uint8))
+    #cv2.imshow("Conv Result", (255 * reflectance).astype(dtype = np.uint8))
 
+    cv2.imwrite(dirNameR + "0" + str(imgName) + ".bmp", (255 * reflectance).astype(dtype = np.uint8))
+    cv2.imwrite(dirNameL + "0" + str(imgName) + ".bmp", (255 * luminance).astype(dtype = np.uint8))
     ############################################################################
     ##                       Proposal Multi Fusion                            ##
     ############################################################################
-    cv2.imshow("Conv Luminance", (255 * luminance).astype(dtype=np.uint8))
-    cv2.imshow("Conv Result", (255 * reflectance).astype(dtype = np.uint8))
-
-    result = (255 * luminance) + (255 * reflectance)
-    cv2.normalize(result, result, 0, 255, cv2.NORM_MINMAX)
-    cv2.imshow("Result", (result).astype(dtype=np.uint8))
-    luminance = (255 * luminance).astype(dtype=np.uint8)
-    cv2.normalize(luminance, luminance, 0, 255, cv2.NORM_MINMAX)
     luminance_result = component_fusion(luminance, imgName, dirNameF)
     cv2.normalize(luminance_result, luminance_result, 0, 1, cv2.NORM_MINMAX)
     cv2.normalize(img, img, 0, 1, cv2.NORM_MINMAX)
@@ -79,8 +70,8 @@ def main(imgName, iteration, dirNameF, dirNameR, dirNameL):
     cv2.normalize(result, result, 0, 255, cv2.NORM_MINMAX)
     elapsed_time = time.time() - start
     fout.writelines(imgName + "Speed = " + format(elapsed_time) + "[sec]\n")
-    cv2.imshow("Proposal Result", result)
-    cv2.waitKey()
+    #cv2.imshow("Proposal Result", result)
+    #cv2.waitKey()
 
 if __name__ == '__main__':
     ############################################################################
@@ -94,12 +85,12 @@ if __name__ == '__main__':
     dirNameL = "result/luminance/" + dirName + "/"
     dirNameF = "result/final_Image/prop/" + dirName + "/"
     fout = open("speed_time.txt", "w")
-    #if not os.path.exists(dirNameR):
-    #    os.mkdir(dirNameR)
-    #if not os.path.exists(dirNameL):
-    #    os.mkdir(dirNameL)
-    #if not os.path.exists(dirNameF):
-    #    os.mkdir(dirNameF)
+    if not os.path.exists(dirNameR):
+        os.mkdir(dirNameR)
+    if not os.path.exists(dirNameL):
+        os.mkdir(dirNameL)
+    if not os.path.exists(dirNameF):
+        os.mkdir(dirNameF)
     i = int(imgName)
     f = int(finName)
 
