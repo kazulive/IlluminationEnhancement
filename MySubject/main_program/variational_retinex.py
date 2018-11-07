@@ -16,7 +16,7 @@ def culcFFT(img, sum):
 ############################################################################
 ##                       Variational Retinex Model                        ##
 ############################################################################
-def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, channel, imgName, dirNameR, dirNameL):
+def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, channel, imgName, dirNameR, dirNameL):
     # 3チャネル用処理
     if(channel == 3):
         print('----Variational Retinex Model(3 channel)----')
@@ -75,8 +75,10 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
         ############################################################################
         ##                           最適化問題の反復試行                         ##
         ############################################################################
-        while (count < number):
+        while (True):
             count += 1
+            reflectance_prev = reflectance.copy()
+            luminance_prev = luminance.copy()
 
             # I / Lの計算 その後、分割
             IL = cv2.divide((img * 255).astype(dtype=np.float32), (255 * luminance).astype(dtype=np.float32))
@@ -100,15 +102,13 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
             maxr = np.maximum(lr, r)
             luminance = cv2.merge((maxb, maxg, maxr))
 
-            reflectance_prev = reflectance.copy()
-            luminance_prev = luminance.copy()
-
-            #eps_r = cv2.divide(np.abs(reflectance - reflectance_prev), np.abs(reflectance))
-            #eps_l = cv2.divide(np.abs(luminance - luminance_prev), np.abs(luminance_prev))
-
-            #if(eps_r <= 0.1 and eps_l <= 0.1):
-            #    print('Variational Retinex End')
-            #    break
+            if(count != 1):
+                eps_r = cv2.divide(np.abs(np.sum(reflectance) - np.sum(reflectance_prev)), np.abs(np.sum(reflectance_prev)))
+                eps_l = cv2.divide(np.abs(np.sum(luminance) - np.sum(luminance_prev)), np.abs(np.sum(luminance_prev)))
+                print(eps_r[0])
+                if(eps_r[0] <= 0.1 and eps_l[0] <= 0.1):
+                    print('----Variational Retinex End----')
+                    break
 
     # 1チャネル用処理
     else:
@@ -164,7 +164,7 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, number, chan
         ############################################################################
         ##                           最適化問題の反復試行                         ##
         ############################################################################
-        while (count < number):
+        while (True):
             count += 1
 
             # I / Lの計算 その後、分割

@@ -13,7 +13,7 @@ from variational_retinex import *
 from gradient_fusion import *
 from multi_fusion import *
 
-def main(imgName, iteration, dirNameF, dirNameR, dirNameL):
+def main(imgName, dirNameF, dirNameR, dirNameL):
     img = cv2.imread("testdata/BMP/0" + imgName + ".bmp")
     img = img.astype(dtype = np.uint8)
     ############################################################################
@@ -53,9 +53,9 @@ def main(imgName, iteration, dirNameF, dirNameR, dirNameL):
     ##                         Variational Retinex Model                      ##
     ############################################################################
     channel = len(img.shape)
-    reflectance, luminance = variationalRetinex(img, init_luminance, bright, 100.0, 0.01, 0.9, iteration, channel, imgName, dirNameR, dirNameL)
-    #cv2.imshow("Conv Luminance", (255 * luminance).astype(dtype = np.uint8))
-    #cv2.imshow("Conv Result", (255 * reflectance).astype(dtype = np.uint8))
+    reflectance, luminance = variationalRetinex(img, init_luminance, bright, 10.0, 0.1, 0.001, channel, imgName, dirNameR, dirNameL)
+    cv2.imshow("Conv Luminance", (255 * luminance).astype(dtype = np.uint8))
+    cv2.imshow("Conv Result", (255 * reflectance).astype(dtype = np.uint8))
 
     cv2.imwrite(dirNameR + "0" + str(imgName) + ".bmp", (255 * reflectance).astype(dtype = np.uint8))
     cv2.imwrite(dirNameL + "0" + str(imgName) + ".bmp", (255 * luminance).astype(dtype = np.uint8))
@@ -70,8 +70,8 @@ def main(imgName, iteration, dirNameF, dirNameR, dirNameL):
     cv2.normalize(result, result, 0, 255, cv2.NORM_MINMAX)
     elapsed_time = time.time() - start
     fout.writelines(imgName + "Speed = " + format(elapsed_time) + "[sec]\n")
-    #cv2.imshow("Proposal Result", result)
-    #cv2.waitKey()
+    cv2.imshow("Proposal Result", result)
+    cv2.waitKey()
 
 if __name__ == '__main__':
     ############################################################################
@@ -80,10 +80,9 @@ if __name__ == '__main__':
     imgName = input('Start Image Name : ')
     finName = input('Finish Image Name: ')
     dirName = input('Input Directry Name : ')
-    iteration = input('Iteration : ')
     dirNameR = "result/reflectance/" + dirName + "/"
     dirNameL = "result/luminance/" + dirName + "/"
-    dirNameF = "result/final_Image/prop/" + dirName + "/"
+    dirNameF = "result/prop/" + dirName + "/"
     fout = open("speed_time.txt", "w")
     if not os.path.exists(dirNameR):
         os.mkdir(dirNameR)
@@ -96,7 +95,7 @@ if __name__ == '__main__':
 
     while(True):
         print('----Input 0' + str(i) + '.bmp-----')
-        main(str(i), int(iteration), dirNameF, dirNameR, dirNameL)
+        main(str(i), dirNameF, dirNameR, dirNameL)
         if(i == f):
             print('----Finish----')
             break

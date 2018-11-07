@@ -22,9 +22,9 @@ def component_fusion(luminance, imgName, dirName):
     lg_adjusted = nonLinearStretch(lg)
     lr_adjusted = nonLinearStretch(lr)
 
-    cv2.normalize(lb_adjusted, lb_adjusted, 0, 1, cv2.NORM_MINMAX)
-    cv2.normalize(lg_adjusted, lg_adjusted, 0, 1, cv2.NORM_MINMAX)
-    cv2.normalize(lr_adjusted, lr_adjusted, 0, 1, cv2.NORM_MINMAX)
+    cv2.normalize(lb_adjusted, lb_adjusted, 0, 255, cv2.NORM_MINMAX)
+    cv2.normalize(lg_adjusted, lg_adjusted, 0, 255, cv2.NORM_MINMAX)
+    cv2.normalize(lr_adjusted, lr_adjusted, 0, 255, cv2.NORM_MINMAX)
 
     luminance_adjusted = cv2.merge((lb, lg, lr))
     ############################################################################
@@ -68,9 +68,9 @@ def component_fusion(luminance, imgName, dirName):
     lb_clahe, lg_clahe, lr_clahe = cv2.split(luminance_clahe)
     lb_unsharp, lg_unsharp, lr_unsharp = cv2.split(luminance_unsharp)
 
-    result_b = sum((255*lb_adjusted), lb_clahe, lb_unsharp)
-    result_g = sum((255*lg_adjusted), lg_clahe, lg_unsharp)
-    result_r = sum((255*lr_adjusted), lr_clahe, lr_unsharp)
+    result_b = sum(lb_adjusted, lb_clahe, lb_unsharp)
+    result_g = sum(lg_adjusted, lg_clahe, lg_unsharp)
+    result_r = sum(lr_adjusted, lr_clahe, lr_unsharp)
 
     cv2.normalize(result_b, result_b, 0, 255, cv2.NORM_MINMAX)
     cv2.normalize(result_g, result_g, 0, 255, cv2.NORM_MINMAX)
