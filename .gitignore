@@ -1,3 +1,8 @@
-testdata
-result
+MySubject/main_program/testdata/
+MySubject/main_program/result/
+MySubject/test_program/testdata/
+MySubject/test_program/testdata/
+MySubject/test_program/evaluate_data/
+.idea/
+MySubject/.idea
 
