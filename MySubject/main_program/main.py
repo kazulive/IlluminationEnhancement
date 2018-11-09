@@ -20,18 +20,27 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ##                           画像サイズ、配列定義                         ##
     ############################################################################
     H, W = img.shape[0], img.shape[1]
-    start = time.time()
+    #start = time.time()
+    ############################################################################
+    ##                               BGR → HSV                               ##
+    ############################################################################
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    h, s, v = cv2.split(hsv)
     ############################################################################
     ##                           照明成分の初期化                             ##
     ############################################################################
     print('----Initial Luminance----')
-    luminance = cv2.GaussianBlur(img, (7, 7), 2.0)
+    #luminance = cv2.GaussianBlur(img, (7, 7), 2.0)
+    luminance = cv2.GaussianBlur(v, (9, 9), 5.0)
+    v = v.astype(dtype = np.float32)
     img = img.astype(dtype=np.float32)
     luminance = luminance.astype(dtype=np.float32)
     cv2.normalize(img, img, 0, 1, cv2.NORM_MINMAX)
+    cv2.normalize(v, v, 0, 1, cv2.NORM_MINMAX)
     ############################################################################
     ##                            Bright Channel生成                          ##
     ############################################################################
+    """""""""
     print('----Get Bright Channel----')
     bright = getBrightChannel(img, 3)
     cv2.normalize(img, img, 0, 1, cv2.NORM_MINMAX)
@@ -39,39 +48,44 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ##                              Guided Filter                             ##
     ############################################################################
     print('----Guided Filter----')
-    bright = guidedFilter(img, bright, 8, 0.16)
+    bright = guidedFilter(img, bright, 7, 0.001)
     bright = bright.astype(dtype=np.float32)
-    cv2.imshow("Bright", bright)
+    """""""""
     ############################################################################
     ##                                正規化                                  ##
     ############################################################################
     cv2.normalize(img, img, 0, 1, cv2.NORM_MINMAX)
-    cv2.normalize(bright, bright, 0, 1, cv2.NORM_MINMAX)
+    #cv2.normalize(bright, bright, 0, 1, cv2.NORM_MINMAX)
     cv2.normalize(luminance, luminance, 0, 1, cv2.NORM_MINMAX)
     init_luminance= luminance.copy()
     ############################################################################
     ##                         Variational Retinex Model                      ##
     ############################################################################
-    channel = len(img.shape)
-    reflectance, luminance = variationalRetinex(img, init_luminance, bright, 10.0, 0.1, 0.001, channel, imgName, dirNameR, dirNameL)
+    #channel = len(img.shape)
+    channel = len(v.shape)
+    v_reflectance, luminance = variationalRetinex(v, init_luminance,init_luminance, 10.0, 0.01, 0.0001, channel, imgName, dirNameR, dirNameL)
     cv2.imshow("Conv Luminance", (255 * luminance).astype(dtype = np.uint8))
-    cv2.imshow("Conv Result", (255 * reflectance).astype(dtype = np.uint8))
-
-    cv2.imwrite(dirNameR + "0" + str(imgName) + ".bmp", (255 * reflectance).astype(dtype = np.uint8))
-    cv2.imwrite(dirNameL + "0" + str(imgName) + ".bmp", (255 * luminance).astype(dtype = np.uint8))
+    hsv_reflectance = cv2.merge((h, s, (255 * v_reflectance).astype(dtype = np.uint8)))
+    reflectance = cv2.cvtColor(hsv_reflectance, cv2.COLOR_HSV2BGR)
+    cv2.imshow("Conv Result", reflectance.astype(dtype = np.uint8))
+    cv2.waitKey()
+    #cv2.imwrite(dirNameR + "0" + str(imgName) + ".bmp", (255 * reflectance).astype(dtype = np.uint8))
+    #cv2.imwrite(dirNameL + "0" + str(imgName) + ".bmp", (255 * luminance).astype(dtype = np.uint8))
     ############################################################################
     ##                       Proposal Multi Fusion                            ##
     ############################################################################
+    """""""""
     luminance_result = component_fusion(luminance, imgName, dirNameF)
     cv2.normalize(luminance_result, luminance_result, 0, 1, cv2.NORM_MINMAX)
     cv2.normalize(img, img, 0, 1, cv2.NORM_MINMAX)
 
     result = (cv2.divide((255*img).astype(dtype = np.uint8), (luminance_result* 255).astype(dtype = np.uint8), scale=255).astype(dtype = np.uint8))
     cv2.normalize(result, result, 0, 255, cv2.NORM_MINMAX)
-    elapsed_time = time.time() - start
-    fout.writelines(imgName + "Speed = " + format(elapsed_time) + "[sec]\n")
+    #elapsed_time = time.time() - start
+    #fout.writelines(imgName + "Speed = " + format(elapsed_time) + "[sec]\n")
     cv2.imshow("Proposal Result", result)
     cv2.waitKey()
+    """""""""
 
 if __name__ == '__main__':
     ############################################################################
@@ -82,7 +96,7 @@ if __name__ == '__main__':
     dirName = input('Input Directry Name : ')
     dirNameR = "result/reflectance/" + dirName + "/"
     dirNameL = "result/luminance/" + dirName + "/"
-    dirNameF = "result/prop/" + dirName + "/"
+    dirNameF = "result/proposal/" + dirName + "/"
     fout = open("speed_time.txt", "w")
     if not os.path.exists(dirNameR):
         os.mkdir(dirNameR)
