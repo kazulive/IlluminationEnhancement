@@ -19,8 +19,7 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ############################################################################
     ##                           画像サイズ、配列定義                         ##
     ############################################################################
-    H, W = img.shape[0], img.shape[1]
-    #start = time.time()
+    start = time.time()
     ############################################################################
     ##                               BGR → HSV                               ##
     ############################################################################
@@ -30,44 +29,21 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ##                           照明成分の初期化                             ##
     ############################################################################
     print('----Initial Luminance----')
-    #luminance = cv2.GaussianBlur(img, (7, 7), 2.0)
-    luminance = cv2.GaussianBlur(v, (9, 9), 5.0)
-    v = v.astype(dtype = np.float32)
+    luminance = cv2.GaussianBlur(v, (7, 7), 5.0)
     img = img.astype(dtype=np.float32)
     luminance = luminance.astype(dtype=np.float32)
-    cv2.normalize(img, img, 0, 1, cv2.NORM_MINMAX)
-    cv2.normalize(v, v, 0, 1, cv2.NORM_MINMAX)
-    ############################################################################
-    ##                            Bright Channel生成                          ##
-    ############################################################################
-    """""""""
-    print('----Get Bright Channel----')
-    bright = getBrightChannel(img, 3)
-    cv2.normalize(img, img, 0, 1, cv2.NORM_MINMAX)
-    ############################################################################
-    ##                              Guided Filter                             ##
-    ############################################################################
-    print('----Guided Filter----')
-    bright = guidedFilter(img, bright, 7, 0.001)
-    bright = bright.astype(dtype=np.float32)
-    """""""""
-    ############################################################################
-    ##                                正規化                                  ##
-    ############################################################################
-    cv2.normalize(img, img, 0, 1, cv2.NORM_MINMAX)
-    #cv2.normalize(bright, bright, 0, 1, cv2.NORM_MINMAX)
-    cv2.normalize(luminance, luminance, 0, 1, cv2.NORM_MINMAX)
-    init_luminance= luminance.copy()
     ############################################################################
     ##                         Variational Retinex Model                      ##
     ############################################################################
-    #channel = len(img.shape)
     channel = len(v.shape)
-    v_reflectance, luminance = variationalRetinex(v, init_luminance,init_luminance, 10.0, 0.01, 0.0001, channel, imgName, dirNameR, dirNameL)
-    cv2.imshow("Conv Luminance", (255 * luminance).astype(dtype = np.uint8))
+    v_reflectance, luminance = variationalRetinex(v, luminance, luminance, 1000.0, 0.1, 0.001, channel, imgName, dirNameR, dirNameL)
+    #print(luminance)
+    cv2.imshow("luminance", luminance.astype(dtype = np.uint8))
     hsv_reflectance = cv2.merge((h, s, (255 * v_reflectance).astype(dtype = np.uint8)))
     reflectance = cv2.cvtColor(hsv_reflectance, cv2.COLOR_HSV2BGR)
-    cv2.imshow("Conv Result", reflectance.astype(dtype = np.uint8))
+    elapsed_time = time.time() - start
+    print("speed : ", elapsed_time)
+    cv2.imshow("reflectance", reflectance)
     cv2.waitKey()
     #cv2.imwrite(dirNameR + "0" + str(imgName) + ".bmp", (255 * reflectance).astype(dtype = np.uint8))
     #cv2.imwrite(dirNameL + "0" + str(imgName) + ".bmp", (255 * luminance).astype(dtype = np.uint8))

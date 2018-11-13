@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 
-np.set_printoptions(threshold=np.inf)
 def division(src, dst):
     div = src.copy()
     non_zero = dst.real != 0
@@ -11,10 +10,7 @@ def division(src, dst):
 
 def zero_pad(image, shape, position='corner'):
     shape = np.asarray(shape, dtype=int)
-    if(type):
-        imshape = np.asarray(image[0].shape, dtype=int)
-    else:
-        imshape = np.asarray(image.shape, dtype=int)
+    imshape = np.asarray(image.shape, dtype=int)
     if np.alltrue(imshape == shape):
         return image
 
@@ -26,7 +22,9 @@ def zero_pad(image, shape, position='corner'):
         raise ValueError("ZERO_PAD: target size smaller than source one")
 
     pad_img = np.zeros(shape, dtype=image.dtype)
+
     idx, idy = np.indices(imshape)
+
     if position == 'center':
         if np.any(dshape % 2 != 0):
             raise ValueError("ZERO_PAD: source and target shapes "
@@ -34,46 +32,44 @@ def zero_pad(image, shape, position='corner'):
         offx, offy = dshape // 2
     else:
         offx, offy = (0, 0)
-    if(type):
-        pad_img[idx + offx, idy + offy] = image[0]
-    else:
-        pad_img[idx + offx, idy + offy] = image
+
+    pad_img[idx + offx, idy + offy] = image
+
     return pad_img
 
-def psf2otf(psf_pad, shape):
+def psf2otf(psf, shape):
+    if np.all(psf == 0):
+        return np.zeros_like(psf)
 
-    if np.all(psf_pad == 0):
-        return np.zeros_like(psf_pad)
+    inshape = psf.shape
 
-    inshape = psf_pad.shape
-
-    #psf_pad = zero_pad(psf, shape,  type, position='corner')
+    psf_pad = zero_pad(psf, shape, position='corner')
 
     for axis, axis_size in enumerate(inshape):
         psf_pad = np.roll(psf_pad, -int(axis_size / 2), axis=axis)
 
     otf = np.fft.fft2(psf_pad)
 
-    n_ops = np.sum(psf_pad.size * np.log2(psf_pad.shape))
-    otf = np.real_if_close(otf, tol=n_ops)
+    #n_ops = np.sum(psf_pad.size * np.log2(psf_pad.shape))
+    #otf = np.real_if_close(otf, tol=n_ops)
+
     return otf
 
 def getKernel(img):
     sizeF = np.shape(img)
-    diff_kernelX = np.expand_dims(np.array([1, -1]), axis=1)
-    diff_kernelY = np.expand_dims(np.array([[1], [-1]]), axis=0)
-    eigsDtD = np.abs(psf2otf(diff_kernelX, sizeF)) ** 2 + np.abs(psf2otf(diff_kernelY, sizeF)) ** 2
+    diff_kernelX = np.expand_dims(np.array([-1, 1]), axis=1)
+    diff_kernelY = np.expand_dims(np.array([[-1], [0], [1]]), axis=0)
+    eigsDtD = np.abs(psf2otf(diff_kernelX, sizeF)) ** 2  + np.abs(psf2otf(diff_kernelX.T, sizeF)) ** 2
     return eigsDtD
 
 ############################################################################
 ##                       各チャネルのFFT計算                              ##
 ############################################################################
 def culcFFT(img, sum):
-    fimg = np.fft.fft2(img)
-    fimg = division(fimg, sum)
-    ifimg = np.fft.ifft2(fimg)
-    ifimg = ifimg.real
-    return ifimg
+    fimg = np.fft.fft2(img) / sum
+    real = np.real(np.fft.ifft2(fimg))
+    return real
+
 ############################################################################
 ##                       Variational Retinex Model                        ##
 ############################################################################
@@ -99,40 +95,14 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, channel, img
         ##                           デルタ関数定義                               ##
         ############################################################################
         delta = np.ones((H, W), np.float32)
+        fdelta = np.fft.fft2(delta)
         gdelta = delta + gamma
-        fdimage = delta
-        fgdimage = gdelta
-
-        ############################################################################
-        ##                           微分オペレータ                               ##
-        ############################################################################
-        sobel_x = np.array([[1, 0, -1],
-                            [1, 0, -1],
-                            [1, 0, -1]])
-
-        sobel_y = np.array([[1, 1, 1],
-                            [0, 0, 0],
-                            [-1, -1, -1]])
-
-        ############################################################################
-        ##                           F(dx), F(dy)                                 ##
-        ############################################################################
-        fsximage = np.fft.fft2(sobel_x)
-        fsyimage = np.fft.fft2(sobel_y)
-        fsx_shift = np.fft.fftshift(fsximage)
-        fsy_shift = np.fft.fftshift(fsyimage)
-        fsx_mag_spectrum = np.abs(fsx_shift) / np.amax(np.abs(fsx_shift))
-        fsy_mag_spectrum = np.abs(fsy_shift) / np.amax(np.abs(fsy_shift))
-        fsx_mag_spectrum = cv2.resize(fsx_mag_spectrum, (W, H))
-        fsy_mag_spectrum = cv2.resize(fsy_mag_spectrum, (W, H))
 
         ############################################################################
         ##                           R, Lの計算時の分母　                         ##
         ############################################################################
-        sum = fsx_mag_spectrum ** 2 + fsy_mag_spectrum ** 2
-        sumR = fdimage + beta * sum
-        sumL = fgdimage + alpha * sum
-
+        sumR = fdelta + beta * getKernel(delta)
+        sumL = fdelta + gdelta + alpha * getKernel(delta)
         ############################################################################
         ##                           最適化問題の反復試行                         ##
         ############################################################################
@@ -142,20 +112,21 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, channel, img
             luminance_prev = luminance.copy()
 
             # I / Lの計算 その後、分割
-            IL = cv2.divide((img * 255).astype(dtype=np.float32), (255 * luminance).astype(dtype=np.float32))
+            IL = cv2.divide((img).astype(dtype=np.float32), (luminance).astype(dtype=np.float32))
             ILB, ILG, ILR = cv2.split(IL)
 
-            reflectance = cv2.merge((culcFFT(ILB, sumR), culcFFT(ILG, sumR), culcFFT(ILR, sumR)))
-            cv2.normalize(reflectance, reflectance, 0, 1, cv2.NORM_MINMAX)
+            reflectance = cv2.merge((cv2.min(1, cv2.max(culcFFT(ILB, sumR), 0)), cv2.min(1, cv2.max(culcFFT(ILG, sumR), 0)), cv2.min(1, cv2.max(culcFFT(ILR, sumR), 0))))
 
-            IR = cv2.divide((img * 255).astype(dtype=np.float32), (255 * reflectance).astype(dtype=np.float32))
+            #cv2.normalize(reflectance, reflectance, 0, 1, cv2.NORM_MINMAX)
+
+            IR = cv2.divide((img).astype(dtype=np.float32), (reflectance).astype(dtype=np.float32))
             IRB, IRG, IRR = cv2.split(IR)
-            IRB += gamma * (bright)
-            IRG += gamma * (bright)
-            IRR += gamma * (bright)
+            IRB += gamma * (bright[:,:,0])
+            IRG += gamma * (bright[:,:,1])
+            IRR += gamma * (bright[:,:,2])
 
             luminance = cv2.merge((culcFFT(IRB, sumL), culcFFT(IRG, sumL), culcFFT(IRR, sumL)))
-            cv2.normalize(luminance, luminance, 0, 1, cv2.NORM_MINMAX)
+            #cv2.normalize(luminance, luminance, 0, 1, cv2.NORM_MINMAX)
 
             lb, lg, lr = cv2.split(luminance)
             maxb = np.maximum(lb, b)
@@ -167,8 +138,7 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, channel, img
                 eps_r = cv2.divide(np.abs(np.sum(reflectance) - np.sum(reflectance_prev)),
                                    np.abs(np.sum(reflectance_prev)))
                 eps_l = cv2.divide(np.abs(np.sum(luminance) - np.sum(luminance_prev)), np.abs(np.sum(luminance_prev)))
-                print(eps_r[0])
-                if (eps_r[0] <= 0.1 and eps_l[0] <= 0.1):
+                if (eps_r[0] <= 0.01 and eps_l[0] <= 0.01):
                     print('----Variational Retinex End----')
                     break
 
@@ -192,18 +162,11 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, channel, img
         ############################################################################
         delta = np.ones((H, W), np.float32)
         gdelta = delta + gamma
-        fdimage = delta
-        fgdimage = gdelta
-
         ############################################################################
         ##                           微分オペレータ                               ##
         ############################################################################
-        sobel_x = np.zeros((H, W))
-        sobel_y = np.zeros((H, W))
-        sobel_x[0][0] = sobel_y[0][0] = 1
-        sobel_x[1][0] = sobel_y[0][1] = -1
-        sumR = delta + beta * (np.abs(psf2otf(sobel_x, np.zeros(H, W))) ** 2 + np.abs(psf2otf(sobel_y, np.zeros(H, W))) ** 2)
-        sumL = gdelta + alpha * (np.abs(psf2otf(sobel_x, np.zeros(H, W))) ** 2 + np.abs(psf2otf(sobel_y, np.zeros(H, W))) ** 2)
+        sumR = delta + beta * getKernel(img)
+        sumL =  gdelta + alpha * getKernel(img)
         ############################################################################
         ##                           最適化問題の反復試行                         ##
         ############################################################################
@@ -213,27 +176,28 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, channel, img
             luminance_prev = luminance.copy()
 
             # I / Lの計算 その後、分割
-            IL = cv2.divide((255 * img).astype(dtype=np.float32), (255 * luminance).astype(dtype=np.float32))
+            IL = cv2.divide((img).astype(dtype=np.float32), (luminance).astype(dtype=np.float32))
             reflectance = culcFFT(IL, sumR)
             reflectance = reflectance.copy()
-            cv2.normalize(reflectance, reflectance, 0, 1, cv2.NORM_MINMAX)
+            #print(np.max(reflectance))
+            reflectance = np.minimum(1.0, np.maximum(reflectance, 0.0))
 
-            IR = cv2.divide((255 * img).astype(dtype=np.float32), (reflectance).astype(dtype=np.float32))
-            IR += gamma * 255 * bright
+            IR = cv2.divide((img).astype(dtype=np.float32), (reflectance).astype(dtype=np.float32))
+            IR += gamma * bright
 
             luminance = culcFFT(IR, sumL)
             luminance = luminance.copy()
-            cv2.normalize(luminance, luminance, 0, 1, cv2.NORM_MINMAX)
+            #print(np.max(luminance))
+            #luminance = 255.0 * luminance / np.max(luminance)
             luminance = np.maximum(luminance, img)
-
-            cv2.imshow("Conv Luminance", (255 * luminance).astype(dtype=np.uint8))
-            cv2.imshow("Conv Result", (255 * reflectance).astype(dtype=np.uint8))
-            cv2.waitKey()
+            #cv2.imshow("Conv Luminance", (luminance).astype(dtype=np.uint8))
+            #cv2.imshow("Conv Result", (255 * reflectance).astype(dtype=np.uint8))
+            #cv2.waitKey()
             if (count != 1):
                 eps_r = cv2.divide(np.abs(np.sum(reflectance) - np.sum(reflectance_prev)),
                                    np.abs(np.sum(reflectance_prev)))
                 eps_l = cv2.divide(np.abs(np.sum(luminance) - np.sum(luminance_prev)), np.abs(np.sum(luminance_prev)))
-                if (eps_r[0] <= 0.05 and eps_l[0] <= 0.05):
+                if (eps_r[0] <= 0.01 and eps_l[0] <= 0.01):
                     print('----Variational Retinex End----')
                     break
 
