@@ -1,12 +1,7 @@
 import cv2
 import numpy as np
 
-def division(src, dst):
-    div = src.copy()
-    non_zero = dst.real != 0
-    div[non_zero] = src[non_zero] / dst[non_zero]
-    div[~non_zero] = 0.0 + 0.0j
-    return div
+from createGaussianPyr import *
 
 def zero_pad(image, shape, position='corner'):
     shape = np.asarray(shape, dtype=int)
@@ -50,16 +45,13 @@ def psf2otf(psf, shape):
 
     otf = np.fft.fft2(psf_pad)
 
-    #n_ops = np.sum(psf_pad.size * np.log2(psf_pad.shape))
-    #otf = np.real_if_close(otf, tol=n_ops)
-
     return otf
 
 def getKernel(img):
     sizeF = np.shape(img)
     diff_kernelX = np.expand_dims(np.array([-1, 1]), axis=1)
     diff_kernelY = np.expand_dims(np.array([[-1], [0], [1]]), axis=0)
-    eigsDtD = np.abs(psf2otf(diff_kernelX, sizeF)) ** 2  + np.abs(psf2otf(diff_kernelX.T, sizeF)) ** 2
+    eigsDtD = np.abs(psf2otf(diff_kernelX, sizeF))   + np.abs(psf2otf(diff_kernelX.T, sizeF))
     return eigsDtD
 
 ############################################################################
@@ -73,90 +65,26 @@ def culcFFT(img, sum):
 ############################################################################
 ##                       Variational Retinex Model                        ##
 ############################################################################
-def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, channel, imgName, dirNameR, dirNameL):
-    # 3チャネル用処理
-    if (channel == 3):
-        print('----Variational Retinex Model(3 channel)----')
+def variationalRetinex(image, alpha, beta, gamma, imgName, dirNameR, dirNameL):
+    imgPyr = createGaussianPyr(image)
+    for i in range(3, -1, -1):
+        img = imgPyr[i].copy()
+        if(i == 3):
+            print('----Initial Luminance----')
+            init_luminance = cv2.GaussianBlur(img, (5, 5), 5.0)
+            luminance = init_luminance.copy()
+            print('----Variational Retinex Model(1 channel)----')
+        else:
+            init_luminance = cv2.GaussianBlur(img, (5, 5), 5.0)
+            luminance = cv2.pyrUp(luminance, (img.shape))
+            luminance = cv2.resize(luminance, (img.shape[1], img.shape[0]))
         ############################################################################
         ##                           各処理の前準備                               ##
         ############################################################################
         count = 0
-        eps_r = 0.0
-        eps_l = 0.0
-        # BGR分割
-        b, g, r = cv2.split(img)
         # 画像サイズ
         H, W = img.shape[:2]
-        # 照明成分の初期化
-        luminance = luminance0.copy()
-        reflectance = np.zeros((H, W, 3), np.float32)
-
-        ############################################################################
-        ##                           デルタ関数定義                               ##
-        ############################################################################
-        delta = np.ones((H, W), np.float32)
-        fdelta = np.fft.fft2(delta)
-        gdelta = delta + gamma
-
-        ############################################################################
-        ##                           R, Lの計算時の分母　                         ##
-        ############################################################################
-        sumR = fdelta + beta * getKernel(delta)
-        sumL = fdelta + gdelta + alpha * getKernel(delta)
-        ############################################################################
-        ##                           最適化問題の反復試行                         ##
-        ############################################################################
-        while (True):
-            count += 1
-            reflectance_prev = reflectance.copy()
-            luminance_prev = luminance.copy()
-
-            # I / Lの計算 その後、分割
-            IL = cv2.divide((img).astype(dtype=np.float32), (luminance).astype(dtype=np.float32))
-            ILB, ILG, ILR = cv2.split(IL)
-
-            reflectance = cv2.merge((cv2.min(1, cv2.max(culcFFT(ILB, sumR), 0)), cv2.min(1, cv2.max(culcFFT(ILG, sumR), 0)), cv2.min(1, cv2.max(culcFFT(ILR, sumR), 0))))
-
-            #cv2.normalize(reflectance, reflectance, 0, 1, cv2.NORM_MINMAX)
-
-            IR = cv2.divide((img).astype(dtype=np.float32), (reflectance).astype(dtype=np.float32))
-            IRB, IRG, IRR = cv2.split(IR)
-            IRB += gamma * (bright[:,:,0])
-            IRG += gamma * (bright[:,:,1])
-            IRR += gamma * (bright[:,:,2])
-
-            luminance = cv2.merge((culcFFT(IRB, sumL), culcFFT(IRG, sumL), culcFFT(IRR, sumL)))
-            #cv2.normalize(luminance, luminance, 0, 1, cv2.NORM_MINMAX)
-
-            lb, lg, lr = cv2.split(luminance)
-            maxb = np.maximum(lb, b)
-            maxg = np.maximum(lg, g)
-            maxr = np.maximum(lr, r)
-            luminance = cv2.merge((maxb, maxg, maxr))
-
-            if (count != 1):
-                eps_r = cv2.divide(np.abs(np.sum(reflectance) - np.sum(reflectance_prev)),
-                                   np.abs(np.sum(reflectance_prev)))
-                eps_l = cv2.divide(np.abs(np.sum(luminance) - np.sum(luminance_prev)), np.abs(np.sum(luminance_prev)))
-                if (eps_r[0] <= 0.01 and eps_l[0] <= 0.01):
-                    print('----Variational Retinex End----')
-                    break
-
-    # 1チャネル用処理
-    else:
-        print('----Variational Retinex Model(1 channel)----')
-        ############################################################################
-        ##                           各処理の前準備                               ##
-        ############################################################################
-        count = 0
-        eps_r = 0.0
-        eps_l = 0.0
-        # 画像サイズ
-        H, W = img.shape[:2]
-        # 照明成分の初期化
-        luminance = luminance0.copy()
         reflectance = np.zeros((H, W), np.float32)
-
         ############################################################################
         ##                           デルタ関数定義                               ##
         ############################################################################
@@ -170,35 +98,30 @@ def variationalRetinex(img, luminance0, bright, alpha, beta, gamma, channel, img
         ############################################################################
         ##                           最適化問題の反復試行                         ##
         ############################################################################
-        while (True):
+        flag = 0
+        while (flag != 1):
             count += 1
             reflectance_prev = reflectance.copy()
             luminance_prev = luminance.copy()
-
             # I / Lの計算 その後、分割
             IL = cv2.divide((img).astype(dtype=np.float32), (luminance).astype(dtype=np.float32))
             reflectance = culcFFT(IL, sumR)
             reflectance = reflectance.copy()
-            #print(np.max(reflectance))
             reflectance = np.minimum(1.0, np.maximum(reflectance, 0.0))
 
             IR = cv2.divide((img).astype(dtype=np.float32), (reflectance).astype(dtype=np.float32))
-            IR += gamma * bright
+            IR += gamma * init_luminance
 
             luminance = culcFFT(IR, sumL)
             luminance = luminance.copy()
-            #print(np.max(luminance))
-            #luminance = 255.0 * luminance / np.max(luminance)
             luminance = np.maximum(luminance, img)
-            #cv2.imshow("Conv Luminance", (luminance).astype(dtype=np.uint8))
-            #cv2.imshow("Conv Result", (255 * reflectance).astype(dtype=np.uint8))
-            #cv2.waitKey()
+
             if (count != 1):
                 eps_r = cv2.divide(np.abs(np.sum(reflectance) - np.sum(reflectance_prev)),
                                    np.abs(np.sum(reflectance_prev)))
                 eps_l = cv2.divide(np.abs(np.sum(luminance) - np.sum(luminance_prev)), np.abs(np.sum(luminance_prev)))
                 if (eps_r[0] <= 0.01 and eps_l[0] <= 0.01):
-                    print('----Variational Retinex End----')
-                    break
+                    #print('----Variational Retinex End----')
+                    flag = 1
 
     return reflectance, luminance

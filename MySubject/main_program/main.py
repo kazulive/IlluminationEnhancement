@@ -7,11 +7,9 @@ import time
 ############################################################################
 ##                     同じディレクトリにあるファイル                     ##
 ############################################################################
-from guidedfilter import *
-from bright_channel import *
 from variational_retinex import *
-from gradient_fusion import *
 from multi_fusion import *
+
 
 def main(imgName, dirNameF, dirNameR, dirNameL):
     img = cv2.imread("testdata/BMP/0" + imgName + ".bmp")
@@ -26,20 +24,12 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     h, s, v = cv2.split(hsv)
     ############################################################################
-    ##                           照明成分の初期化                             ##
-    ############################################################################
-    print('----Initial Luminance----')
-    luminance = cv2.GaussianBlur(v, (7, 7), 5.0)
-    img = img.astype(dtype=np.float32)
-    luminance = luminance.astype(dtype=np.float32)
-    ############################################################################
     ##                         Variational Retinex Model                      ##
     ############################################################################
     channel = len(v.shape)
-    v_reflectance, luminance = variationalRetinex(v, luminance, luminance, 1000.0, 0.1, 0.001, channel, imgName, dirNameR, dirNameL)
-    #print(luminance)
+    v_reflectance, luminance = variationalRetinex(v, 1000.0, 0.01, 0.1, imgName, dirNameR, dirNameL)
     cv2.imshow("luminance", luminance.astype(dtype = np.uint8))
-    hsv_reflectance = cv2.merge((h, s, (255 * v_reflectance).astype(dtype = np.uint8)))
+    hsv_reflectance = cv2.merge((h, s, (255.0 * v_reflectance).astype(dtype = np.uint8)))
     reflectance = cv2.cvtColor(hsv_reflectance, cv2.COLOR_HSV2BGR)
     elapsed_time = time.time() - start
     print("speed : ", elapsed_time)
