@@ -14,9 +14,7 @@ from multi_fusion import *
 def main(imgName, dirNameF, dirNameR, dirNameL):
     img = cv2.imread("testdata/BMP/0" + imgName + ".bmp")
     img = img.astype(dtype = np.uint8)
-    ############################################################################
-    ##                           画像サイズ、配列定義                         ##
-    ############################################################################
+
     start = time.time()
     ############################################################################
     ##                               BGR → HSV                               ##
@@ -27,16 +25,14 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ##                         Variational Retinex Model                      ##
     ############################################################################
     channel = len(v.shape)
-    v_reflectance, luminance = variationalRetinex(v, 1000.0, 0.01, 0.1, imgName, dirNameR, dirNameL)
-    cv2.imshow("luminance", luminance.astype(dtype = np.uint8))
+    v_reflectance, luminance = variationalRetinex(v, 1000.0, 0.1, 0.1, imgName, dirNameR, dirNameL, pyr_num=4)
     hsv_reflectance = cv2.merge((h, s, (255.0 * v_reflectance).astype(dtype = np.uint8)))
     reflectance = cv2.cvtColor(hsv_reflectance, cv2.COLOR_HSV2BGR)
     elapsed_time = time.time() - start
-    print("speed : ", elapsed_time)
-    cv2.imshow("reflectance", reflectance)
-    cv2.waitKey()
-    #cv2.imwrite(dirNameR + "0" + str(imgName) + ".bmp", (255 * reflectance).astype(dtype = np.uint8))
-    #cv2.imwrite(dirNameL + "0" + str(imgName) + ".bmp", (255 * luminance).astype(dtype = np.uint8))
+    fout.writelines(imgName + "Speed = " + format(elapsed_time) + "[sec]\n")
+    cv2.imwrite(dirNameR + "0" + str(imgName) + ".bmp", (reflectance).astype(dtype = np.uint8))
+    cv2.imwrite(dirNameL + "0" + str(imgName) + ".bmp", (luminance).astype(dtype = np.uint8))
+    print('----Variational Retinex End----')
     ############################################################################
     ##                       Proposal Multi Fusion                            ##
     ############################################################################

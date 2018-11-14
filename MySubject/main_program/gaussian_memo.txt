@@ -1,0 +1,14 @@
+In the image pyramid, the bottom image, with the coarsest spatial resolution, contains the fewest pixels.
+Thus, the iterations needed for solving the coarsest illumination component are very few in the multi-resolution scheme.
+Moreover, since the illumination component is spatially smooth, the interpolation of the coarse illumination component can be considered as an approximation of the illumination in the finer layer.
+
+画像ピラミッドでは、最も粗い空間解像度を有するボトム画像は、最小のピクセルを含む。
+したがって、最も粗い照明成分を解くために必要な反復は、多重解像度方式ではごくわずかである。
+さらに、照明成分は空間的に滑らかであるので、粗い照明成分の補間は、より細かい層における照明の近似として考えることができる。
+
+
+The spatially smooth images are taken as the initial illumination components in the multi-resolution method, which is consistent with the physical characteristics of the illumination.
+Therefore, the layer-by-layer optimization results in a smoother and greyer illumination than the single-resolution optimization, and more spatial and chromatic information is preserved in the results.
+
+空間的に滑らかな画像は、照明の物理的特性と一致するマルチ解像度法における初期照明成分として取られる。
+したがって、レイヤーごとの最適化により、単一解像度の最適化よりも滑らかで灰色の照明が得られ、より空間的および色彩的な情報が結果に保存されます。
