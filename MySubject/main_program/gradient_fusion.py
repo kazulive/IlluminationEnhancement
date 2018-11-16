@@ -10,10 +10,10 @@ def averageGradient(img):
     H, W = img.shape[0], img.shape[1]
     # カーネル(縦横の輪郭検出)
     kernelX = np.array([[0, 0, 0],
-                        [0, -1, 1],
+                        [-1, 0, 1],
                         [0, 0, 0]])
     kernelY = kernelX.T
-    aveg = np.sum(np.square(cv2.filter2D(img, cv2.CV_32F, kernelX) ** 2 + cv2.filter2D(img, cv2.CV_32F, kernelY) ** 2)) / ((H-1 * W-1))
+    aveg = np.sum(np.square(cv2.filter2D(img, cv2.CV_32F, kernelX) ** 2 + cv2.filter2D(img, cv2.CV_32F, kernelY) ** 2)) / (((H-1) * (W-1)))
     return aveg
 
 ############################################################################

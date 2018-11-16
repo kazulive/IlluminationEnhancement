@@ -27,39 +27,29 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ##                         Variational Retinex Model                      ##
     ############################################################################
     channel = len(v.shape)
-    v_reflectance, luminance = variationalRetinex(v, 10.0, 0.1, 0.001, imgName, dirNameR, dirNameL, pyr_num=3)
-    ############################################################################
-    ##                         Guided Filter                                  ##
-    ############################################################################
-    guidedImg = guidedFilter(v.astype(dtype=np.float32), v.astype(dtype=np.float32), 7, 0.001).astype(dtype=np.uint8)
+    v_reflectance, luminance = variationalRetinex(v, 10.0, 0.1, 0.001, imgName, dirNameR, dirNameL, pyr_num=2)
+    hsv_reflectance = cv2.merge((h, s, (nonLinearStretch(luminance) * v_reflectance).astype(dtype=np.uint8)))
+    reflectance = cv2.cvtColor(hsv_reflectance, cv2.COLOR_HSV2BGR)
     cv2.imshow("Luminance", (luminance).astype(dtype=np.uint8))
-    cv2.imshow("Guided Image", (guidedImg).astype(dtype=np.uint8))
+    cv2.imshow("Conv Result", (reflectance).astype(dtype=np.uint8))
+    ############################################################################
+    ##                         Guided Fusion                                  ##
+    ############################################################################
+    guidedImg = (guidedFilter(v.astype(dtype=np.float32) / 255.0, v.astype(dtype=np.float32)/255.0, 7, 0.001) * 255.0).astype(dtype=np.uint8)
+    cv2.imshow("guidedImag", (guidedImg).astype(dtype=np.uint8))
     luminance_final = gradientFusion(guidedImg.astype(dtype=np.float32), luminance.astype(dtype=np.float32))
     cv2.imshow("Pre Test", (luminance_final).astype(dtype=np.uint8))
     reflectance_new = cv2.divide((v).astype(dtype = np.float32), (luminance_final).astype(dtype = np.float32))
-    hsv_reflectance = cv2.merge((h, s, (nonLinearStretch(luminance_final) * reflectance_new).astype(dtype=np.uint8)))
-    reflectance = cv2.cvtColor(hsv_reflectance, cv2.COLOR_HSV2BGR)
-    #elapsed_time = time.time() - start
-    #print(elapsed_time)
-    cv2.imshow("Conv Result", (reflectance).astype(dtype=np.uint8))
-    #cv2.waitKey()
-    #fout.writelines(imgName + "Speed = " + format(elapsed_time) + "[sec]\n")
+    reflectance_new = np.minimum(1.0, np.maximum(reflectance_new, 0.0))
+    #print(np.max(reflectance_new))
+    hsv_reflectance_new = cv2.merge((h, s, (nonLinearStretch(luminance_final) * reflectance_new).astype(dtype=np.uint8)))
+    reflectance_final = cv2.cvtColor(hsv_reflectance_new, cv2.COLOR_HSV2BGR)
+    cv2.imshow("Prop Result", (reflectance_final).astype(dtype=np.uint8))
     #cv2.imwrite(dirNameR + "0" + str(imgName) + ".bmp", (reflectance).astype(dtype = np.uint8))
     #cv2.imwrite(dirNameL + "0" + str(imgName) + ".bmp", (luminance).astype(dtype = np.uint8))
-    print('----Variational Retinex End----')
-    ############################################################################
-    ##                       Proposal Multi Fusion                            ##
-    ############################################################################
-    #luminance_result = component_fusion(luminance, imgName, dirNameF)
-    #v_reflectance = (cv2.divide((v).astype(dtype = np.uint8), (luminance_result).astype(dtype = np.uint8), scale=255.0).astype(dtype = np.uint8))
-
-    #hsv_reflectance = cv2.merge((h, s, (luminance_result * v_reflectance).astype(dtype=np.uint8)))
-    #reflectance = cv2.cvtColor(hsv_reflectance, cv2.COLOR_HSV2BGR)
     elapsed_time = time.time() - start
-    #elapsed_time = time.time() - start
-    #fout.writelines(imgName + "Speed = " + format(elapsed_time) + "[sec]\n")
-    #cv2.imshow("Conv Luminance", (luminance).astype(dtype = np.uint8))
-    #cv2.imshow("Proposal Result", (reflectance).astype(dtype = np.uint8))
+    print("speed : ", elapsed_time)
+    print('----Variational Retinex End----')
     cv2.waitKey()
 
 if __name__ == '__main__':

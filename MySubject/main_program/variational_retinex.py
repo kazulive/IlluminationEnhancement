@@ -4,8 +4,7 @@ import numpy as np
 from createGaussianPyr import *
 from guidedfilter import *
 from padding import *
-from shrink import *
-from clahe import *
+from gradient_fusion import *
 
 ############################################################################
 ##                       各チャネルのFFT計算                              ##
@@ -37,7 +36,7 @@ def variationalRetinex(image, alpha, beta, gamma, imgName, dirNameR, dirNameL, p
 
             print('----Initial Luminance----')
             init_luminance = cv2.GaussianBlur(img, (5, 5), 3.0)
-            #init_luminance = guidedFilter(img, img, 7, 0.001)
+            #init_luminance = guidedFilter(img, img, 4, 0.16)
             luminance = np.copy(init_luminance)
             print('----Variational Retinex Model(1 channel)----')
         else:
@@ -70,7 +69,6 @@ def variationalRetinex(image, alpha, beta, gamma, imgName, dirNameR, dirNameL, p
             IL = cv2.divide((img).astype(dtype=np.float32), (luminance).astype(dtype=np.float32))
             reflectance = culcFFT(IL, sumR)
             reflectance = np.minimum(1.0, np.maximum(reflectance, 0.0))
-
             IR = cv2.divide((img).astype(dtype=np.float32), (reflectance).astype(dtype=np.float32))
             IR += gamma * init_luminance
 
@@ -83,5 +81,4 @@ def variationalRetinex(image, alpha, beta, gamma, imgName, dirNameR, dirNameL, p
                 eps_l = cv2.divide(np.abs(np.sum(luminance) - np.sum(luminance_prev)), np.abs(np.sum(luminance_prev)))
                 if (eps_r[0] <= 0.1 and eps_l[0] <= 0.1):
                     flag = 1
-
     return reflectance, luminance
