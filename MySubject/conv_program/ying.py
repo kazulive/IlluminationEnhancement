@@ -1,9 +1,7 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import imageio
 import scipy, scipy.misc, scipy.signal
 import cv2
-import sys
+import time
 
 
 def computeTextureWeights(fin, sigma, sharpness):
@@ -145,15 +143,23 @@ def Ying_2017_CAIP(img, mu=0.5, a=-0.3293, b=1.1258):
 
 def main():
     imgName = input('input image name : ')
-    resultName = input('input result name : ')
-    img = cv2.imread('testdata/' + imgName)
-    print("----------読み込み----------")
+    finName = input('Finish ImageName : ')
+    i = int(imgName)
+    N = int(finName)
+    fout = open("speed_time.txt", "w")
+    while(i <= N):
+        img = cv2.imread('testdata/0' + str(i) + '.bmp')
+        print("----------読み込み----------")
+        start = time.time()
     #plt.imshow(img)
     #plt.show()
-    result = Ying_2017_CAIP(img)
-    print("----------出力----------")
+        result = Ying_2017_CAIP(img)
+        elapsed_time = time.time() - start
+        fout.writelines(str(i) + "Speed = " + format(elapsed_time) + "[sec]\n")
+        print("----------出力----------")
     #plt.imshow(result)
-    cv2.imwrite('result/ying/' + resultName, result)
+        cv2.imwrite('result/ying/0' + str(i) + '.bmp', result)
+        i += 1
     #plt.show()
 
 

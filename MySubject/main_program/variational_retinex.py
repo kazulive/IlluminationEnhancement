@@ -4,6 +4,8 @@ import numpy as np
 from createGaussianPyr import *
 from guidedfilter import *
 from padding import *
+from shrink import *
+from clahe import *
 
 ############################################################################
 ##                       各チャネルのFFT計算                              ##
@@ -13,15 +15,13 @@ def culcFFT(img, sum):
     real = np.real(np.fft.ifft2(fimg))
     return real
 
-def upSampling(img, reflectance, luminance, init_luminance):
+def upSampling(img, luminance, init_luminance):
     up_luminance = cv2.pyrUp(luminance, (img.shape))
-    up_reflectance = cv2.pyrUp(reflectance, (img.shape))
 
     up_luminance = cv2.resize(up_luminance, (img.shape[1], img.shape[0]))
-    up_reflectance = cv2.resize(up_reflectance, (img.shape[1], img.shape[0]))
-    up_init_luminance = cv2.resize(up_luminance, (img.shape[1], img.shape[0]))
+    up_init_luminance = np.copy(up_luminance)
 
-    return up_reflectance, up_luminance, up_init_luminance
+    return up_luminance, up_init_luminance
 
 ############################################################################
 ##                       Variational Retinex Model                        ##
@@ -32,16 +32,18 @@ def variationalRetinex(image, alpha, beta, gamma, imgName, dirNameR, dirNameL, p
         img = np.copy(imgPyr[i])
         if(i == pyr_num-1):
             H, W = img.shape[:2]
+            img = img.astype(dtype = np.float32)
             reflectance = np.zeros((H, W), np.float32)
 
             print('----Initial Luminance----')
-            #luminance = cv2.GaussianBlur(img, (3, 3), 2.0)
-            init_luminance = guidedFilter(img, img, 7, 0.001)
+            init_luminance = cv2.GaussianBlur(img, (5, 5), 3.0)
+            #init_luminance = guidedFilter(img, img, 7, 0.001)
             luminance = np.copy(init_luminance)
             print('----Variational Retinex Model(1 channel)----')
         else:
             H, W = img.shape[:2]
-            reflectance, luminance, init_luminance = upSampling(img, reflectance, luminance, init_luminance)
+            reflectance = np.zeros((H, W), dtype = np.float32)
+            luminance, init_luminance = upSampling(img, luminance, init_luminance)
         ############################################################################
         ##                           各処理の前準備                               ##
         ############################################################################

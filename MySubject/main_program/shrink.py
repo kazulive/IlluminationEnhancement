@@ -7,5 +7,5 @@ import numpy as np
 def nonLinearStretch(img):
     mean = cv2.mean(img)
     a = 10 + (1 - mean[0]) / mean[0]
-    luminance_Adjusted = 2 * np.arctan(a * img) / np.pi
-    return luminance_Adjusted
+    luminance_Adjusted = 2.0 * np.arctan(a * img / 255.0) / np.pi
+    return (luminance_Adjusted * 255.0).astype(dtype = np.float32)

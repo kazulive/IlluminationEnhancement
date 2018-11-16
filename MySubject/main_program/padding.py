@@ -46,7 +46,7 @@ def psf2otf(psf, shape):
 
 def getKernel(img):
     sizeF = np.shape(img)
-    diff_kernelX = np.expand_dims(np.array([-1, 1]), axis=1)
+    diff_kernelX = np.expand_dims(np.array([[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]), axis=1)
     diff_kernelY = np.expand_dims(np.array([[-1], [0], [1]]), axis=0)
-    eigsDtD = np.abs(psf2otf(diff_kernelX, sizeF)) ** 2 + np.abs(psf2otf(diff_kernelX.T, sizeF)) ** 2
+    eigsDtD = np.abs(psf2otf(diff_kernelX[0], sizeF)) ** 2 + np.abs(psf2otf(diff_kernelX[0].T, sizeF)) ** 2
     return eigsDtD
