@@ -27,14 +27,20 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ##                         Variational Retinex Model                      ##
     ############################################################################
     channel = len(v.shape)
-    v_reflectance, luminance = variationalRetinex(v, 10.0, 0.1, 0.001, imgName, dirNameR, dirNameL, pyr_num=2)
-    hsv_reflectance = cv2.merge((h, s, (nonLinearStretch(luminance) * v_reflectance).astype(dtype=np.uint8)))
+    v_reflectance, luminance = variationalRetinex(v, 10.0, 0.1, 0.001, imgName, dirNameR, dirNameL, pyr_num=4)
+    hsv_reflectance = cv2.merge((h, s, (cleary(nonLinearStretch(luminance).astype(dtype = np.uint8)) * v_reflectance).astype(dtype=np.uint8)))
     reflectance = cv2.cvtColor(hsv_reflectance, cv2.COLOR_HSV2BGR)
-    cv2.imshow("Luminance", (luminance).astype(dtype=np.uint8))
-    cv2.imshow("Conv Result", (reflectance).astype(dtype=np.uint8))
+    cv2.imwrite(dirNameF + "0" + str(imgName) + "_shrink.bmp", (nonLinearStretch(luminance)).astype(dtype=np.uint8))
+    cv2.imwrite(dirNameF + "0" + str(imgName) + "_contrast.bmp", (cleary(nonLinearStretch(luminance).astype(dtype = np.uint8))).astype(dtype=np.uint8))
+    cv2.imwrite(dirNameF + "0" + str(imgName) + ".bmp", (reflectance).astype(dtype=np.uint8))
+    #cv2.imshow("Luminance", (luminance).astype(dtype=np.uint8))
+    #cv2.imshow("Reflectance", (255.0 * v_reflectance).astype(dtype=np.uint8))
+    #cv2.imshow("Conv Result", (reflectance).astype(dtype=np.uint8))
+    #cv2.waitKey()
     ############################################################################
     ##                         Guided Fusion                                  ##
     ############################################################################
+    """""""""
     guidedImg = (guidedFilter(v.astype(dtype=np.float32) / 255.0, v.astype(dtype=np.float32)/255.0, 7, 0.001) * 255.0).astype(dtype=np.uint8)
     cv2.imshow("guidedImag", (guidedImg).astype(dtype=np.uint8))
     luminance_final = gradientFusion(guidedImg.astype(dtype=np.float32), luminance.astype(dtype=np.float32))
@@ -51,6 +57,7 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     print("speed : ", elapsed_time)
     print('----Variational Retinex End----')
     cv2.waitKey()
+    """""""""
 
 if __name__ == '__main__':
     ############################################################################

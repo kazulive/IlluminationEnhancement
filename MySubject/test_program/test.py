@@ -34,6 +34,12 @@ def Mean(img):
     return Mean
 
 #############################################################################
+##                              Contrast                                   ##
+#############################################################################
+def Contrast(img):
+    return (np.max(img) - np.min(img)) / (np.max(img) + np.min(img))
+
+#############################################################################
 ##                         明瞭度(CLARIFY)                                 ##
 #############################################################################
 def Clarity(img, dst):
@@ -98,46 +104,34 @@ def LOE(img, dst):
 #############################################################################
 ##                               GMSD                                      ##
 #############################################################################
-def GMSD(img, dst, rescale = True, returnMap = False):
-    if rescale:
-        scl = (255.0 / img.max())
-    else:
-        scl = np.float32(1.0)
-    T = 170.0
-    dwn = 2
-    dx = np.array([[1, 0, -1],
-                   [1, 0, -1],
-                   [1, 0, -1]]) / 3.0
-    dy = dx.T
+def GMSD(img, dst):
+    H, W = img.shape
+    c = 0.0026
+    kernelX = np.array([[1, 0, -1],
+                        [1, 0, -1],
+                        [1, 0, -1]])
+    kernelY = kernelX.T
 
-    ukrn = np.ones((2, 2)) / 4.0
-    aveY1 = signal.convolve2d(scl * img, ukrn, mode='same', boundary='symm')
-    aveY2 = signal.convolve2d(scl * dst, ukrn, mode='same', boundary='symm')
-    Y1 = aveY1[0::dwn, 0::dwn]
-    Y2 = aveY2[0::dwn, 0::dwn]
+    gi_x = cv2.filter2D(img, cv2.CV_32F, kernelX)
+    gi_y = cv2.filter2D(img, cv2.CV_32F, kernelY)
 
-    IxY1 = signal.convolve2d(Y1, dx, mode='same', boundary='symm')
-    IyY1 = signal.convolve2d(Y1, dy, mode='same', boundary='symm')
-    grdMap1 = np.sqrt(IxY1**2 + IyY1**2)
+    gr_x = cv2.filter2D(dst, cv2.CV_32F, kernelX)
+    gr_y = cv2.filter2D(dst, cv2.CV_32F, kernelY)
 
-    IxY2 = signal.convolve2d(Y2, dx, mode='same', boundary='symm')
-    IyY2 = signal.convolve2d(Y2, dy, mode='same', boundary='symm')
-    grdMap2 = np.sqrt(IxY2**2 + IyY2**2)
+    gi = np.sqrt(gi_x ** 2 + gi_y ** 2)
+    gr = np.sqrt(gr_x ** 2 + gr_y ** 2)
 
-    quality_map = (2*grdMap1*grdMap2 + T) / (grdMap1**2 + grdMap2**2 + T)
-    score = np.std(quality_map)
+    GMS = (2.0 * gi * gr + c) / (gi ** 2 + gr ** 2 + c)
 
-    if returnMap:
-        return (score, quality_map)
-    else:
-        return score
-
+    GMSM = np.mean(GMS)
+    GMSD = np.sqrt(np.sum((GMS - GMSM) ** 2) / (H*W))
+    return GMSD
 
 if __name__ == '__main__':
     imgName = input('input image name : ')
     finName = input('Finish ImageName : ')
     fileName = input('file name : ')
-    fout = open("evaluate_data/" + fileName + "/text.txt", "w")
+    fout = open("evaluate_data/" + fileName + "/" + fileName + "_evaluation.txt", "w")
     i = int(imgName)
     N = int(finName)
     print('----Start To Evaluate----')
@@ -166,9 +160,9 @@ if __name__ == '__main__':
         print('Entropy : ', image_entropy(result_gray))
         fout.writelines("Entropy = " + str(image_entropy(result_gray)) + "\n")
 
-       # print('----GMSD----')
-        #print('GMSD : ', GMSD(result_gray, img_gray))
-        #fout.writelines("GMSD = " + str(GMSD(result_gray, img_gray)) + "\n")
+        print('----GMSD----')
+        print('GMSD : ', GMSD(img_gray, result_gray))
+        fout.writelines("GMSD = " + str(GMSD(img_gray, result_gray)) + "\n")
 
         print('----LOE----')
         print('LOE : ', LOE(img, result))
