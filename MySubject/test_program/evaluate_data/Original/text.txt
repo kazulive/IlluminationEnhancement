@@ -1,0 +1,105 @@
+----Evaluate 01.bmp-----
+Mean = 20.661305338541666
+Clarify = 0.0
+CCI = 48.61393000217255
+Entropy = [4.68699371]
+LOE = 0.0
+
+----Evaluate 02.bmp-----
+Mean = 8.75462164337876
+Clarify = 0.0
+CCI = 100.43718894235698
+Entropy = [4.36814025]
+LOE = 0.0
+
+----Evaluate 03.bmp-----
+Mean = 27.179054260253906
+Clarify = 0.0
+CCI = 152.36560351399356
+Entropy = [5.64187071]
+LOE = 0.0
+
+----Evaluate 04.bmp-----
+Mean = 23.830281575520832
+Clarify = 0.0
+CCI = 34.72986824643829
+Entropy = [5.61242568]
+LOE = 0.0
+
+----Evaluate 05.bmp-----
+Mean = 60.28892369259135
+Clarify = 0.0
+CCI = 168.63210608783626
+Entropy = [6.98790467]
+LOE = 0.0
+
+----Evaluate 06.bmp-----
+Mean = 54.619705944129386
+Clarify = 0.0
+CCI = 50.08950000203094
+Entropy = [6.63544079]
+LOE = 0.0
+
+----Evaluate 07.bmp-----
+Mean = 56.31265987915882
+Clarify = 0.0
+CCI = 171.98479818260094
+Entropy = [7.03248493]
+LOE = 0.0
+
+----Evaluate 08.bmp-----
+Mean = 9.297802378738572
+Clarify = 0.0
+CCI = 63.08162637314976
+Entropy = [4.35091961]
+LOE = 0.0
+
+----Evaluate 09.bmp-----
+Mean = 23.443812585733884
+Clarify = 0.0
+CCI = 97.5809254585161
+Entropy = [5.33881095]
+LOE = 0.0
+
+----Evaluate 010.bmp-----
+Mean = 41.66326147704591
+Clarify = 0.0
+CCI = 170.18051702508384
+Entropy = [6.34529349]
+LOE = 0.0
+
+----Evaluate 011.bmp-----
+Mean = 87.24416409465022
+Clarify = 0.0
+CCI = 151.3223348179099
+Entropy = [7.1474478]
+LOE = 0.0
+
+----Evaluate 012.bmp-----
+Mean = 7.323020300635363
+Clarify = 0.0
+CCI = 87.81710491278996
+Entropy = [3.54671388]
+LOE = 0.0
+
+----Evaluate 013.bmp-----
+Mean = 54.20258647465763
+Clarify = 0.0
+CCI = 169.35524259931296
+Entropy = [6.83355332]
+LOE = 0.0
+
+----Evaluate 014.bmp-----
+Mean = 58.57572463768116
+Clarify = 0.0
+CCI = 141.10276266466272
+Entropy = [6.84151177]
+LOE = 0.0
+
+----Evaluate 015.bmp-----
+Mean = 6.605162883254717
+Clarify = 0.0
+CCI = 69.59179690854886
+Entropy = [3.83951873]
+LOE = 0.0
+

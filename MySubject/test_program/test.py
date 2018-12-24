@@ -130,43 +130,63 @@ def GMSD(img, dst):
 if __name__ == '__main__':
     imgName = input('input image name : ')
     finName = input('Finish ImageName : ')
-    fileName = input('file name : ')
-    fout = open("evaluate_data/" + fileName + "/" + fileName + "_evaluation.txt", "w")
+    fileName1 = input('file name 1: ')
+    #fileName2 = input('file name 2: ')
+    #fileName3 = input('file name 3: ')
+    #fout = open("evaluate_data/evaluation.csv", "w")
     i = int(imgName)
     N = int(finName)
     print('----Start To Evaluate----')
 
     while (i <= N):
         img = cv2.imread("testdata/BMP/0" + str(i) + ".bmp" )
-        result = cv2.imread("evaluate_data/" + fileName + "/0" + str(i) + ".bmp")
+        result1 = cv2.imread("evaluate_data/" + fileName1 + "/0" + str(i) + ".bmp")
+        #result2 = cv2.imread("evaluate_data/" + fileName2 + "/0" + str(i) + ".bmp")
+        #result3 = cv2.imread("evaluate_data/" + fileName3 + "/0" + str(i) + ".bmp")
         print('----Input 0' + str(i) + '.bmp-----')
-        fout.writelines("----Evaluate 0" + str(i) + ".bmp-----\n")
-        result_gray = cv2.cvtColor(result, cv2.COLOR_BGR2GRAY)
-        img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        #fout.writelines("----Evaluate 0" + str(i) + ".bmp-----\n")
+        result_gray1 = cv2.cvtColor(result1, cv2.COLOR_BGR2GRAY)
+        #result_gray2 = cv2.cvtColor(result2, cv2.COLOR_BGR2GRAY)
+        #result_gray3 = cv2.cvtColor(result3, cv2.COLOR_BGR2GRAY)
+        #img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        print('----Mean----')
-        print('Mean : ', Mean(result))
-        fout.writelines("Mean = " + str(Mean(result)) + "\n")
+        thresh = 22
+        max_pixel = 255
+        ret, img_dst = cv2.threshold(result_gray1,
+                                     thresh,
+                                     max_pixel,
+                                     cv2.THRESH_BINARY)
+        cv2.imwrite("evaluate_data/binary.bmp", img_dst)
+        cv2.waitKey(0)
+        #print('----Mean----')
+        #print('Mean : ', Mean(result1))
+        #fout.writelines("Mean\n")
+        #fout.writelines(str(Mean(result1)) + "," + str(Mean(result2))+ "," + str(Mean(result3))+"\n")
 
-        print('----Clarify----')
-        print('Clarity : ', Clarity(img, result))
-        fout.writelines("Clarify = " + str(Clarity(img, result)) + "\n")
+        #print('----Clarify----')
+        #print('Clarity : ', Clarity(img, result))
+        #fout.writelines("Clarify\n")
+        #fout.writelines(str(Clarity(img, result1)) + "," + str(Clarity(img, result2)) + "," + str(Clarity(img, result3)) + "\n")
 
-        print('----Color Colorfulness Index----')
-        print('CCI : ', CCI(result))
-        fout.writelines("CCI = " + str(CCI(result)) + "\n")
+        #print('----Color Colorfulness Index----')
+        #print('CCI : ', CCI(result))
+        #fout.writelines("CCI\n")
+        #fout.writelines(str(CCI(result1))  + "," + str(CCI(result2)) + "," + str(CCI(result3))+  "\n")
 
-        print('----Entropy----')
-        print('Entropy : ', image_entropy(result_gray))
-        fout.writelines("Entropy = " + str(image_entropy(result_gray)) + "\n")
+        #print('----Entropy----')
+        #print('Entropy : ', image_entropy(result_gray))
+        #fout.writelines("Entropy\n")
+        #fout.writelines(str(image_entropy(result_gray1)) + "," + str(image_entropy(result_gray2)) + "," + str(image_entropy(result_gray3)) + "\n")
 
-        print('----GMSD----')
-        print('GMSD : ', GMSD(img_gray, result_gray))
-        fout.writelines("GMSD = " + str(GMSD(img_gray, result_gray)) + "\n")
+        #print('----GMSD----')
+        #print('GMSD : ', GMSD(img_gray, result_gray))
+        #fout.writelines("GMSD\n")
+        #fout.writelines(str(GMSD(img_gray, result_gray1)) + "," + str(GMSD(img_gray, result_gray2)) + "," + str(GMSD(img_gray, result_gray3)) + "\n")
 
-        print('----LOE----')
-        print('LOE : ', LOE(img, result))
-        fout.writelines("LOE = " + str(LOE(img, result)) + "\n\n")
+        #print('----LOE----')
+        #print('LOE : ', LOE(img, result))
+        #fout.writelines("LOE\n")
+        #fout.writelines(str(LOE(img, result1)) + "," + str(LOE(img, result2)) + "," + str(LOE(img, result3)) + "\n")
 
         i += 1
     print("---Program End----")
