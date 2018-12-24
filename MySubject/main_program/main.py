@@ -52,26 +52,10 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ##                         Variational Retinex Model                      ##
     ############################################################################
     channel = len(v.shape)
-    v_reflectance, luminance = variationalRetinex(v, 1000.0, 0.1, 0.1, imgName, dirNameR, dirNameL, pyr_num=4)
+    v_reflectance, luminance = variationalRetinex(v, 10.0, 0.1, 0.001, imgName, dirNameR, dirNameL, pyr_num=4)
     hsv_reflectance = cv2.merge((h, s, (cleary(nonLinearStretch(luminance).astype(dtype = np.uint8)) * v_reflectance).astype(dtype=np.uint8)))
     reflectance = cv2.cvtColor(hsv_reflectance, cv2.COLOR_HSV2BGR)
-<<<<<<< HEAD
     cv2.imwrite(dirNameF + "0" + str(imgName) + ".bmp", (reflectance).astype(dtype=np.uint8))
-=======
-    elapsed_time = time.time() - start
-    fout.writelines(imgName + ":Speed = " + format(elapsed_time) + "[sec]\n")
-    #cv2.imshow("Luminance", (luminance).astype(dtype=np.uint8))
-    #cv2.imshow("Reflectance", (255.0 * v_reflectance).astype(dtype=np.uint8))
-    #cv2.imshow("Conv Result", (reflectance).astype(dtype=np.uint8))
-    #cv2.waitKey()
-    #cv2.imwrite(dirNameF + "0" + str(imgName) + "_shrink.bmp", (nonLinearStretch(luminance)).astype(dtype=np.uint8))
-    #cv2.imwrite(dirNameF + "0" + str(imgName) + "_contrast.bmp", (cleary(nonLinearStretch(luminance).astype(dtype = np.uint8))).astype(dtype=np.uint8))
-    #cv2.imwrite(dirNameF + "0" + str(imgName) + ".bmp", (reflectance).astype(dtype=np.uint8))
-    #cv2.imshow("Luminance", (luminance).astype(dtype=np.uint8))
-    #cv2.imshow("Reflectance", (255.0 * v_reflectance).astype(dtype=np.uint8))
-    #cv2.imshow("Conv Result", (reflectance).astype(dtype=np.uint8))
-    #cv2.waitKey()
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
     ############################################################################
     ##                         Guided Fusion                                  ##
     ############################################################################
@@ -101,13 +85,10 @@ if __name__ == '__main__':
     dirNameF = "result/proposal/" + dirName + "/"
     speedName = "result/" + dirName
     fout = open(speedName + "_speed_time.txt", "w")
-<<<<<<< HEAD
 
     ############################################################################
     ##                        　 ディレクトリ作成   　　                      ##
     ############################################################################
-=======
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
     if not os.path.exists(dirNameR):
         os.mkdir(dirNameR)
     if not os.path.exists(dirNameL):

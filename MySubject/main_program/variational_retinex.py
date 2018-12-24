@@ -25,58 +25,7 @@ def upSampling(img, luminance, init_luminance):
 ############################################################################
 ##                       Variational Retinex Model                        ##
 ############################################################################
-def variationalRetinex(img, alpha, beta, gamma, imgName, dirNameR, dirNameL, pyr_num):
-    H, W = img.shape[:2]
-    init_luminance = cv2.GaussianBlur(img, (5, 5), 5.0)
-    luminance = np.copy(init_luminance)
-    img = img.astype(dtype=np.float32)
-    luminance = luminance.astype(dtype=np.float32)
-    reflectance = np.zeros((H, W), np.float32)
-    ############################################################################
-    ##                           各処理の前準備                               ##
-    ############################################################################
-    count = 0
-    ############################################################################
-    ##                           デルタ関数定義                               ##
-    ############################################################################
-    # delta = np.ones((H, W), np.float32)
-    # gdelta = delta + gamma
-    ############################################################################
-    ##                           微分オペレータ                               ##
-    ############################################################################
-    sumR = getKernel(img, gamma)[0] + beta * getKernel(img, gamma)[2]
-    sumL = getKernel(img, gamma)[1] + alpha * getKernel(img, gamma)[2]
-    ############################################################################
-    ##                           最適化問題の反復試行                         ##
-    ############################################################################
-    flag = 0
-    while (flag != 1):
-        count += 1
-        reflectance_prev = np.copy(reflectance)
-        luminance_prev = np.copy(luminance)
-        # I / Lの計算
-        IL = cv2.divide(img, (luminance).astype(dtype=np.float32))
-        reflectance = culcFFT(IL, sumR)
-        reflectance = np.minimum(1.0, np.maximum(reflectance, 0.0))
-        # I / Rの計算
-        IR = cv2.divide(img, (reflectance).astype(dtype=np.float32))
-        IR += gamma * init_luminance
-        luminance = culcFFT(IR, sumL)
-        luminance = np.maximum(luminance, img)
-
-        #cv2.imwrite(dirNameR + "0" + str(imgName) + str(count) + ".bmp", (255.0 * reflectance).astype(dtype=np.uint8))
-        #cv2.imwrite(dirNameL + "0" + str(imgName) + str(count) + ".bmp", (luminance).astype(dtype=np.uint8))
-
-        if (count != 1):
-            eps_r = cv2.divide(np.abs(np.sum(255.0 * reflectance) - np.sum(255.0 * reflectance_prev)),
-                               np.abs(np.sum(255.0 * reflectance_prev)))
-            eps_l = cv2.divide(np.abs(np.sum(luminance) - np.sum(luminance_prev)), np.abs(np.sum(luminance_prev)))
-            if (eps_r[0] <= 0.05 and eps_l[0] <= 0.05):
-                flag = 1
-
-    return reflectance, luminance
-
-    """""""""
+def variationalRetinex(image, alpha, beta, gamma, imgName, dirNameR, dirNameL, pyr_num):
     imgPyr = createGaussianPyr(image, pyr_num)
     for i in range(pyr_num - 1, -1, -1):
         img = np.copy(imgPyr[i])
@@ -116,10 +65,10 @@ def variationalRetinex(img, alpha, beta, gamma, imgName, dirNameR, dirNameL, pyr
             luminance = culcFFT(IR, sumL)
             luminance = np.maximum(luminance, img)
 
-            #if(i==0):
-            #    cv2.imwrite(dirNameR + "0" + str(imgName) + str(count) + ".bmp",
-            #            (255.0 * reflectance).astype(dtype=np.uint8))
-            #cv2.imwrite(dirNameL + str(i) + "_0" + str(imgName) + str(count) + ".bmp", (luminance).astype(dtype=np.uint8))
+            if(i==0):
+                cv2.imwrite(dirNameR + "0" + str(imgName) + str(count) + ".bmp",
+                        (255.0 * reflectance).astype(dtype=np.uint8))
+            cv2.imwrite(dirNameL + str(i) + "_0" + str(imgName) + str(count) + ".bmp", (luminance).astype(dtype=np.uint8))
 
             if (count != 1):
                 eps_r = cv2.divide(np.abs(np.sum(255 * reflectance) - np.sum(255 * reflectance_prev)),
@@ -128,4 +77,3 @@ def variationalRetinex(img, alpha, beta, gamma, imgName, dirNameR, dirNameL, pyr
                 if (eps_r[0] <= 0.1 and eps_l[0] <= 0.1):
                     flag = 1
     return reflectance, luminance
-    """""""""

@@ -11,7 +11,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="test.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test_program/test.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
@@ -21,30 +21,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main_program/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
+            <state relative-caret-position="-673">
               <caret line="46" column="5" lean-forward="false" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="multi_fusion.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main_program/multi_fusion.py">
-          <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-=======
-            <state relative-caret-position="367">
-              <caret line="115" column="37" lean-forward="false" selection-start-line="115" selection-start-column="37" selection-end-line="115" selection-end-column="37" />
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
+                <marker date="1545641676562" expanded="true" signature="1577:2318" ph="..." />
+                <marker date="1545641676562" expanded="true" signature="4899:5091" ph="..." />
+                <marker date="1545641676562" expanded="true" signature="5022:5076" ph="..." />
               </folding>
             </state>
           </provider>
@@ -53,11 +39,7 @@
       <file leaf-file-name="padding.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_program/padding.py">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
             <state relative-caret-position="867">
-=======
-            <state relative-caret-position="282">
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
               <caret line="51" column="36" lean-forward="false" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
               <folding />
             </state>
@@ -67,7 +49,6 @@
       <file leaf-file-name="shrink.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_program/shrink.py">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
             <state relative-caret-position="136">
               <caret line="9" column="42" lean-forward="false" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
               <folding />
@@ -90,10 +71,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
               <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-=======
-            <state relative-caret-position="120">
-              <caret line="37" column="5" lean-forward="false" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -104,32 +81,8 @@
       <file leaf-file-name="variational_retinex.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_program/variational_retinex.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2482">
-              <caret line="152" column="84" lean-forward="false" selection-start-line="152" selection-start-column="84" selection-end-line="152" selection-end-column="84" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="variational_retinex_test.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main_program/variational_retinex_test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="weight_map.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main_program/weight_map.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="1224">
+              <caret line="78" column="33" lean-forward="true" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -191,10 +144,10 @@
         <option value="$PROJECT_DIR$/main_program/shrink.py" />
         <option value="$PROJECT_DIR$/main_program/padding.py" />
         <option value="$PROJECT_DIR$/main_program/variational_retinex.py" />
-        <option value="$PROJECT_DIR$/main_program/main.py" />
         <option value="$PROJECT_DIR$/test_program/test.py" />
         <option value="$PROJECT_DIR$/conv_program/main.py" />
         <option value="$PROJECT_DIR$/main_program/unsharpmask.py" />
+        <option value="$PROJECT_DIR$/main_program/main.py" />
       </list>
     </option>
   </component>
@@ -235,11 +188,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-<<<<<<< HEAD
-      <pane id="Scratches" />
-      <pane id="Scope" />
-=======
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -261,8 +209,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -399,29 +347,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-<<<<<<< HEAD
     <frame x="1912" y="-8" width="1696" height="1026" extended-state="6" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2827381" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-=======
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24743778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42313787" sideWeight="0.5124451" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3319194" sideWeight="0.49322918" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42417815" sideWeight="0.50989586" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33187294" sideWeight="0.49322918" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-<<<<<<< HEAD
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33187294" sideWeight="0.49322918" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4370208" sideWeight="0.49010417" order="9" side_tool="false" content_ui="tabs" x="1068" y="567" width="787" height="301" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-=======
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42313787" sideWeight="0.4875549" order="9" side_tool="false" content_ui="tabs" x="1068" y="567" width="787" height="301" />
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4370208" sideWeight="0.49010417" order="9" side_tool="false" content_ui="tabs" x="1068" y="567" width="787" height="301" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -471,64 +406,23 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/test_program/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2397">
-          <caret line="141" column="61" lean-forward="false" selection-start-line="141" selection-start-column="8" selection-end-line="141" selection-end-column="61" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main_program/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
+        <state relative-caret-position="731">
           <caret line="46" column="5" lean-forward="false" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
           <folding>
             <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/multi_fusion.py">
-=======
-    <entry file="file://$PROJECT_DIR$/../zemi_project/main.py" />
-    <entry file="file://$PROJECT_DIR$/../zemi_project/pySaliencyMap.py" />
-    <entry file="file://$PROJECT_DIR$/conv program/ren.py" />
-    <entry file="file://$PROJECT_DIR$/main program/bright_channel.py" />
-    <entry file="file://G:/MySubject/main program/main.py" />
-    <entry file="file://$PROJECT_DIR$/conv program/ying.py" />
-    <entry file="file://$PROJECT_DIR$/../retinex/retinex.py" />
-    <entry file="file://$PROJECT_DIR$/../retinex/main.py" />
-    <entry file="file://$PROJECT_DIR$/main program/test.py" />
-    <entry file="file://$PROJECT_DIR$/main program/division.py" />
-    <entry file="file://$PROJECT_DIR$/main program/shrink.py" />
-    <entry file="file://$PROJECT_DIR$/main program/unsharpmask.py" />
-    <entry file="file://$PROJECT_DIR$/main program/clahe.py" />
-    <entry file="file://$PROJECT_DIR$/main program/guidedfilter.py" />
-    <entry file="file://$PROJECT_DIR$/main program/derived.py" />
-    <entry file="file://$PROJECT_DIR$/main program/gradient_fusion.py" />
-    <entry file="file://$PROJECT_DIR$/main program/gitignore/gradient_fusion.py" />
-    <entry file="file://$PROJECT_DIR$/main program/.gitignore" />
-    <entry file="file://$PROJECT_DIR$/test program/ReadMe.txt" />
-    <entry file="file://$PROJECT_DIR$/main program/testdata/JPEG/.gitignore" />
-    <entry file="file://$PROJECT_DIR$/main program/testdata/BMP/.gitignore" />
-    <entry file="file://$PROJECT_DIR$/main program/generaized_unsharp_mask.py" />
-    <entry file="file://$PROJECT_DIR$/main program/multi_fusion.py" />
-    <entry file="file://$PROJECT_DIR$/main program/variational_retinex.py" />
-    <entry file="file://$PROJECT_DIR$/main program/main.py" />
-    <entry file="file://$PROJECT_DIR$/test program/test.py" />
-    <entry file="file://$PROJECT_DIR$/test_program/ReadMe.txt" />
-    <entry file="file://$USER_HOME$/PycharmProjects/retinex/retinex.py" />
-    <entry file="file://$USER_HOME$/PycharmProjects/retinex/main.py" />
-    <entry file="file://$PROJECT_DIR$/main_program/generaized_unsharp_mask.py" />
-    <entry file="file://$PROJECT_DIR$/main_program/guidedfilter.py">
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <marker date="1545641676562" expanded="true" signature="1577:2318" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="4899:5091" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="5022:5076" ph="..." />
           </folding>
         </state>
       </provider>
@@ -567,7 +461,72 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/main_program/variational_retinex.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2108">
+          <caret line="130" column="13" lean-forward="true" selection-start-line="130" selection-start-column="13" selection-end-line="130" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_program/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2397">
+          <caret line="141" column="61" lean-forward="false" selection-start-line="141" selection-start-column="8" selection-end-line="141" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="46" column="5" lean-forward="false" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+            <marker date="1545641676562" expanded="true" signature="1577:2318" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="4899:5091" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="5022:5076" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/multi_fusion.py" />
+    <entry file="file://$PROJECT_DIR$/main_program/shrink.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="42" lean-forward="false" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/padding.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="51" column="36" lean-forward="false" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/speed_time.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/unsharpmask.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main_program/variational_retinex.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2482">
@@ -578,30 +537,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/variational_retinex_test.py">
-=======
-    <entry file="file://$PROJECT_DIR$/conv_program/ren.py" />
-    <entry file="file://$PROJECT_DIR$/main_program/weight_map.py">
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/weight_map.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/variational_retinex_test.py" />
+    <entry file="file://$PROJECT_DIR$/main_program/weight_map.py" />
     <entry file="file://$PROJECT_DIR$/test_program/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -627,13 +564,15 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/main_program/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="29" column="77" lean-forward="false" selection-start-line="29" selection-start-column="77" selection-end-line="29" selection-end-column="77" />
           <folding>
             <element signature="e#23#33#0" expanded="true" />
+            <marker date="1545641676562" expanded="true" signature="1577:2318" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="4899:5091" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="5022:5076" ph="..." />
           </folding>
         </state>
       </provider>
@@ -675,22 +614,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="867">
           <caret line="51" column="36" lean-forward="false" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
-=======
-    <entry file="file://$PROJECT_DIR$/conv_program/ying.py" />
-    <entry file="file://$PROJECT_DIR$/conv_program/speed_time.txt" />
-    <entry file="file://$PROJECT_DIR$/test_program/calcHist.py" />
-    <entry file="file://$PROJECT_DIR$/test_program/test.py" />
-    <entry file="file://$PROJECT_DIR$/main_program/shrink.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="42" lean-forward="false" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main_program/gaussian_memo.txt">
-<<<<<<< HEAD
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="183" lean-forward="false" selection-start-line="9" selection-start-column="109" selection-end-line="9" selection-end-column="183" />
@@ -698,47 +626,36 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main_program/shrink.py">
-=======
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="183" lean-forward="false" selection-start-line="9" selection-start-column="109" selection-end-line="9" selection-end-column="183" />
+        <state relative-caret-position="136">
+          <caret line="9" column="42" lean-forward="false" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main_program/main.py">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
         <state relative-caret-position="289">
           <caret line="29" column="77" lean-forward="false" selection-start-line="29" selection-start-column="77" selection-end-line="29" selection-end-column="77" />
           <folding>
             <element signature="e#23#33#0" expanded="true" />
+            <marker date="1545641676562" expanded="true" signature="1577:2318" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="4899:5091" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="5022:5076" ph="..." />
           </folding>
-=======
-        <state relative-caret-position="282">
-          <caret line="51" column="36" lean-forward="false" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
-          <folding />
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main_program/variational_retinex.py">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
         <state relative-caret-position="1394">
           <caret line="88" column="63" lean-forward="false" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="63" />
-=======
-        <state relative-caret-position="367">
-          <caret line="115" column="37" lean-forward="false" selection-start-line="115" selection-start-column="37" selection-end-line="115" selection-end-column="37" />
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/main_program/padding.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="867">
@@ -766,14 +683,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="26" column="33" lean-forward="false" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
-=======
-    <entry file="file://$PROJECT_DIR$/main_program/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="37" column="5" lean-forward="false" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
->>>>>>> 4739d98e1152cbe8c4fbfcbaa156a09c8d9aeee6
           <folding>
             <element signature="e#23#33#0" expanded="true" />
+            <marker date="1545641676562" expanded="true" signature="1577:2318" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="4899:5091" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="5022:5076" ph="..." />
           </folding>
         </state>
       </provider>
@@ -827,26 +741,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="46" column="5" lean-forward="false" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/multi_fusion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/multi_fusion.py" />
     <entry file="file://$PROJECT_DIR$/main_program/padding.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="867">
@@ -883,39 +778,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_program/variational_retinex.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2482">
-          <caret line="152" column="84" lean-forward="false" selection-start-line="152" selection-start-column="84" selection-end-line="152" selection-end-column="84" />
+        <state relative-caret-position="1224">
+          <caret line="78" column="33" lean-forward="true" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/variational_retinex_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/weight_map.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/variational_retinex_test.py" />
+    <entry file="file://$PROJECT_DIR$/main_program/weight_map.py" />
     <entry file="file://$PROJECT_DIR$/test_program/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="141" column="61" lean-forward="false" selection-start-line="141" selection-start-column="8" selection-end-line="141" selection-end-column="61" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-673">
+          <caret line="46" column="5" lean-forward="false" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+            <marker date="1545641676562" expanded="true" signature="1577:2318" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="4899:5091" ph="..." />
+            <marker date="1545641676562" expanded="true" signature="5022:5076" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
