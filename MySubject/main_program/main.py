@@ -33,7 +33,7 @@ cv2.imwrite(dirNameF + "reflectance0" + str(imgName) + ".bmp", (reflectance_fina
 ############################################################################
 ##                     同じディレクトリにあるファイル                     ##
 ############################################################################
-from variational_retinex import *
+from dog_vf import *
 from shrink import *
 from guidedfilter import *
 from gradient_fusion import *
@@ -41,6 +41,7 @@ from clahe import *
 
 
 def main(imgName, dirNameF, dirNameR, dirNameL):
+    start = time.time()
     img = cv2.imread("testdata/BMP/0" + imgName + ".bmp")
     img = img.astype(dtype = np.uint8)
     ############################################################################
@@ -52,16 +53,21 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ##                         Variational Retinex Model                      ##
     ############################################################################
     channel = len(v.shape)
-    v_reflectance, luminance = variationalRetinex(v, 10.0, 0.1, 0.001, imgName, dirNameR, dirNameL, pyr_num=4)
+    v_reflectance, luminance = variationalRetinex(v, 0.01, 1.0, 1.0, imgName, dirNameR, dirNameL)
+    np.savetxt("reflectance" + ".csv", v_reflectance, fmt="%0.2f", delimiter=",")
+    np.savetxt("luminance" + ".csv", luminance, fmt="%0.2f", delimiter=",")
+    cv2.imwrite(dirNameR + "0" + str(imgName) + ".bmp",
+                (255.0 * v_reflectance).astype(dtype=np.uint8))
+    cv2.imwrite(dirNameL + "_0" + str(imgName) + ".bmp", (luminance).astype(dtype=np.uint8))
     hsv_reflectance = cv2.merge((h, s, (cleary(nonLinearStretch(luminance).astype(dtype = np.uint8)) * v_reflectance).astype(dtype=np.uint8)))
     reflectance = cv2.cvtColor(hsv_reflectance, cv2.COLOR_HSV2BGR)
+    elapsed_time = time.time() - start
+    print(elapsed_time)
     cv2.imwrite(dirNameF + "0" + str(imgName) + ".bmp", (reflectance).astype(dtype=np.uint8))
     ############################################################################
     ##                         Guided Fusion                                  ##
     ############################################################################
     guidedImg = (guidedFilter(v.astype(dtype=np.float32) / 255.0, v.astype(dtype=np.float32)/255.0, 7, 0.04) * 255.0).astype(dtype=np.uint8)
-    cv2.imshow("guided", guidedImg)
-    cv2.waitKey()
     luminance_final = gradientFusion(guidedImg.astype(dtype=np.float32), luminance.astype(dtype=np.float32))
     reflectance_new = cv2.divide((v).astype(dtype = np.float32), (luminance_final).astype(dtype = np.float32))
     reflectance_new = np.minimum(1.0, np.maximum(reflectance_new, 0.0))

@@ -33,7 +33,7 @@ def variationalRetinex(image, alpha, beta, gamma, imgName, dirNameR, dirNameL, p
             H, W = img.shape[:2]
             img = img.astype(dtype=np.float32)
             reflectance = np.zeros((H, W), np.float32)
-            init_luminance = cv2.GaussianBlur(img, (5, 5), 2.0)
+            init_luminance = cv2.GaussianBlur(img, (7, 7), 5.0)
             luminance = np.copy(init_luminance)
             print('----Variational Retinex Model(1 channel)----')
         else:
@@ -74,6 +74,6 @@ def variationalRetinex(image, alpha, beta, gamma, imgName, dirNameR, dirNameL, p
                 eps_r = cv2.divide(np.abs(np.sum(255 * reflectance) - np.sum(255 * reflectance_prev)),
                                    np.abs(np.sum(255 * reflectance_prev)))
                 eps_l = cv2.divide(np.abs(np.sum(luminance) - np.sum(luminance_prev)), np.abs(np.sum(luminance_prev)))
-                if (eps_r[0] <= 0.1 and eps_l[0] <= 0.1):
+                if (eps_r[0] <= 0.05 and eps_l[0] <= 0.05):
                     flag = 1
     return reflectance, luminance
