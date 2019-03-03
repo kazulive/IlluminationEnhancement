@@ -53,7 +53,7 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ##                         Variational Retinex Model                      ##
     ############################################################################
     channel = len(v.shape)
-    v_reflectance, luminance = variationalRetinex(v, 0.01, 1.0, 1.0, imgName, dirNameR, dirNameL)
+    v_reflectance, luminance = variationalRetinex(v, 0.01, 0.01, 1.0, imgName, dirNameR, dirNameL)
     np.savetxt("reflectance" + ".csv", v_reflectance, fmt="%0.2f", delimiter=",")
     np.savetxt("luminance" + ".csv", luminance, fmt="%0.2f", delimiter=",")
     cv2.imwrite(dirNameR + "0" + str(imgName) + ".bmp",

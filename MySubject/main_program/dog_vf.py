@@ -14,8 +14,8 @@ kernelX = np.array([[0, 0, 0],
 kernelY = kernelX.T
 
 def shrink(R, r, bx, by, lam):
-    tmpX = R * cv2.filter2D(r.astype(dtype=np.float32), cv2.CV_32F, kernelX) + bx
-    tmpY = R * cv2.filter2D(r.astype(dtype=np.float32), cv2.CV_32F, kernelY) + by
+    tmpX = R * np.abs(cv2.filter2D(r.astype(dtype=np.float32), cv2.CV_32F, kernelX)) + bx
+    tmpY = R * np.abs(cv2.filter2D(r.astype(dtype=np.float32), cv2.CV_32F, kernelY)) + by
 
     return (cv2.divide(tmpX , np.abs(tmpX))) * np.maximum(np.abs(tmpX) - 1.0 / (2.0 * lam), 0.0), (cv2.divide(tmpY, np.abs(tmpY))) * np.maximum(np.abs(tmpY) - 1.0 / (2.0 * lam), 0.0)
 
@@ -27,6 +27,7 @@ def variationalRetinex(img, alpha, beta, lam, imgName, dirNameR, dirNameL):
     img = img.astype(dtype = np.uint8)
     Fx = psf2otf(np.expand_dims(np.array([1, -1]), axis=1), img.shape).conjugate()
     Fy = psf2otf(np.expand_dims(np.array([1, -1]), axis=1).T, img.shape).conjugate()
+    Fu, Fd = getKernel(img)
     # s, r, l, R, L, d, bの初期設定
     reflectance = np.zeros((H, W), np.float32)
     dx = np.zeros((H, W), np.float32)
@@ -47,10 +48,10 @@ def variationalRetinex(img, alpha, beta, lam, imgName, dirNameR, dirNameL):
             # I / Lの計算 その後、分割
             log_reflectance = np.real(np.fft.ifft2(np.fft.fft2(log_image - log_luminance)))
             log_reflectance = np.minimum(log_reflectance, 0.0)
-            bx = reflectance * cv2.filter2D(log_reflectance.astype(dtype = np.float32), cv2.CV_32F, kernelX) - dx
-            by = reflectance * cv2.filter2D(log_reflectance.astype(dtype = np.float32), cv2.CV_32F, kernelY) - dy
+            bx = reflectance * np.abs(cv2.filter2D(log_reflectance.astype(dtype = np.float32), cv2.CV_32F, kernelX)) - dx
+            by = reflectance * np.abs(cv2.filter2D(log_reflectance.astype(dtype = np.float32), cv2.CV_32F, kernelY)) - dy
 
-            log_luminance = np.real(np.fft.ifft2((np.fft.fft2(log_image - log_reflectance)) / getKernel(img)[0] + beta * luminance * getKernel(img)[1]))
+            log_luminance = np.real(np.fft.ifft2((np.fft.fft2(log_image - log_reflectance)) / Fu + beta * luminance * Fd))
             log_luminance = np.maximum(log_image, log_luminance)
 
             reflectance_prev = np.copy(np.exp(log_reflectance))
@@ -61,10 +62,10 @@ def variationalRetinex(img, alpha, beta, lam, imgName, dirNameR, dirNameL):
             by_prev = np.copy(by)
         else:
             ############################################################################
-            ##                        微分オペレータのフーリエ                        ##
+            ##                        微分オペレータのフーリエ変換                    ##
             ############################################################################
-            sumR = getKernel(img)[0] + alpha * lam * reflectance_prev * getKernel(img)[1]
-            sumL = getKernel(img)[0] + beta * luminance_prev * getKernel(img)[1]
+            sumR = Fu + alpha * lam * reflectance_prev * Fd
+            sumL = Fu + beta * luminance_prev * Fd
 
             dx, dy = shrink(reflectance_prev, log_reflectance, bx_prev, by_prev, lam)
             phi = Fx * np.fft.fft2(dx - bx_prev) + Fy * np.fft.fft2(dy - by_prev)
@@ -72,8 +73,8 @@ def variationalRetinex(img, alpha, beta, lam, imgName, dirNameR, dirNameL):
             log_reflectance = np.minimum(log_reflectance, 0.0)
             #np.savetxt("reflectance" + str(count) + ".csv", log_reflectance, fmt="%0.2f", delimiter=",")
 
-            bx = bx_prev + reflectance * cv2.filter2D(log_reflectance.astype(dtype = np.float32), cv2.CV_32F, kernelX) - dx
-            by = by_prev + reflectance *  cv2.filter2D(log_reflectance.astype(dtype = np.float32), cv2.CV_32F, kernelY) - dy
+            bx = bx_prev + reflectance * np.abs(cv2.filter2D(log_reflectance.astype(dtype = np.float32), cv2.CV_32F, kernelX)) - dx
+            by = by_prev + reflectance *  np.abs(cv2.filter2D(log_reflectance.astype(dtype = np.float32), cv2.CV_32F, kernelY)) - dy
 
             log_luminance = np.real(np.fft.ifft2((np.fft.fft2(log_image - log_reflectance)) / sumL))
             log_luminance = np.maximum(log_image, log_luminance)
@@ -87,7 +88,7 @@ def variationalRetinex(img, alpha, beta, lam, imgName, dirNameR, dirNameL):
             log_luminance_prev = np.copy(log_luminance)
             bx_prev = np.copy(bx)
             by_prev = np.copy(by)
-
+            print(eps_r[0], eps_l[0])
             if (eps_r[0]<= 0.01 and eps_l[0] <= 0.01):
                 flag = 1
 
