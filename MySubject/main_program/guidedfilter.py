@@ -6,6 +6,7 @@ Guided Filter関数
 from scipy import ndimage
 import scipy as sp
 import numpy as np
+import cv2
 
 def box(img, r):
     """ O(1) box filter
@@ -103,8 +104,7 @@ def _gf_color(I, p, r, eps, s=None):
 
     return q
 
-
-def _gf_gray(I, p, r, eps, s=None):
+def _gf_gray(I, p, r, lamda, s=None):
     """ grayscale (fast) guided filter
         I - guide image (1 channel)
         p - filter input (1 channel)
@@ -120,10 +120,13 @@ def _gf_gray(I, p, r, eps, s=None):
         Isub = I
         Psub = p
 
+    L = np.max(np.max(Isub)) - np.min(np.min(Isub))
+    eps = (0.001 * L) ** 2
 
     (rows, cols) = Isub.shape
 
     N = box(np.ones([rows, cols]), r)
+    Lam = np.ones([rows, cols]) * lamda
 
     meanI = box(Isub, r) / N
     meanP = box(Psub, r) / N
@@ -132,8 +135,11 @@ def _gf_gray(I, p, r, eps, s=None):
     varI = corrI - meanI * meanI
     covIp = corrIp - meanI * meanP
 
+    varI_sum = np.sum(np.sum(1. / (varI + eps)))
+    gamma0 = varI * varI_sum / (rows * cols)
+    gamma = cv2.GaussianBlur(gamma0, (3, 3), 2)
 
-    a = covIp / (varI + eps)
+    a = covIp / (varI + lamda / gamma)
     b = meanP - a * meanI
 
     meanA = box(a, r) / N

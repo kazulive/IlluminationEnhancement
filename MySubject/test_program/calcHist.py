@@ -1,26 +1,31 @@
-from PIL import Image
+# -*- coding:utf-8 -*-
+import cv2
 import numpy as np
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
 imgName = input('input image name : ')
-im = Image.open("testdata/BMP/0" + imgName + ".bmp" )
+# 入力画像を読み込み
+img = cv2.imread("testdata/BMP/0" + imgName + ".bmp")
 
-r = np.array(im)[:, :, 0].flatten()
-g = np.array(im)[:, :, 1].flatten()
-b = np.array(im)[:, :, 2].flatten()
+b, g, r = img[:, :, 0], img[:, :, 1], img[:, :, 2]
 
-bins_range = range(0, 257, 8)
-xtics_range = range(0, 257, 32)
+# 方法1(NumPyでヒストグラムの算出)
+hist_r, bins = np.histogram(r.ravel(), 256, [0, 256])
+hist_g, bins = np.histogram(g.ravel(), 256, [0, 256])
+hist_b, bins = np.histogram(b.ravel(), 256, [0, 256])
 
-fig, (ax0, ax1, ax2) = plt.subplots(nrows=3, ncols=1, sharex=True, sharey=True)
+# 方法2(OpenCVでヒストグラムの算出)
+# hist_r = cv2.calcHist([r],[0],None,[256],[0,256])
+# hist_g = cv2.calcHist([g],[0],None,[256],[0,256])
+# hist_b = cv2.calcHist([b],[0],None,[256],[0,256])
 
-ax0.hist(r, bins=bins_range, color='r')
-ax1.hist(g, bins=bins_range, color='g')
-ax2.hist(b, bins=bins_range, color='b')
-
-plt.setp((ax0, ax1, ax2), xticks=xtics_range, xlim=(0, 256))
-ax0.grid(True)
-ax1.grid(True)
-ax2.grid(True)
-
-plt.savefig("matplotlib_histogram_single.png")
+# グラフの作成
+plt.xlim(0, 255)
+plt.plot(hist_r, "-r", label="Red")
+plt.plot(hist_g, "-g", label="Green")
+plt.plot(hist_b, "-b", label="Blue")
+plt.xlabel("Pixel value", fontsize=20)
+plt.ylabel("Number of pixels", fontsize=20)
+plt.legend()
+plt.grid()
+plt.show()

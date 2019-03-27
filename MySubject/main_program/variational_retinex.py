@@ -33,7 +33,7 @@ def variationalRetinex(image, alpha, beta, gamma, imgName, dirNameR, dirNameL, p
             H, W = img.shape[:2]
             img = img.astype(dtype=np.float32)
             reflectance = np.zeros((H, W), np.float32)
-            init_luminance = cv2.GaussianBlur(img, (7, 7), 5.0)
+            init_luminance = cv2.GaussianBlur(img, (7, 7), 2.0)
             luminance = np.copy(init_luminance)
             print('----Variational Retinex Model(1 channel)----')
         else:
@@ -65,15 +65,15 @@ def variationalRetinex(image, alpha, beta, gamma, imgName, dirNameR, dirNameL, p
             luminance = culcFFT(IR, sumL)
             luminance = np.maximum(luminance, img)
 
-            if(i==0):
-                cv2.imwrite(dirNameR + "0" + str(imgName) + str(count) + ".bmp",
-                        (255.0 * reflectance).astype(dtype=np.uint8))
-            cv2.imwrite(dirNameL + str(i) + "_0" + str(imgName) + str(count) + ".bmp", (luminance).astype(dtype=np.uint8))
+            #if(i==0):
+            #    cv2.imwrite(dirNameR + "0" + str(imgName) + str(count) + ".bmp",
+            #            (255.0 * reflectance).astype(dtype=np.uint8))
+            #cv2.imwrite(dirNameL + str(i) + "_0" + str(imgName) + str(count) + ".bmp", (luminance).astype(dtype=np.uint8))
 
             if (count != 1):
                 eps_r = cv2.divide(np.abs(np.sum(255 * reflectance) - np.sum(255 * reflectance_prev)),
                                    np.abs(np.sum(255 * reflectance_prev)))
                 eps_l = cv2.divide(np.abs(np.sum(luminance) - np.sum(luminance_prev)), np.abs(np.sum(luminance_prev)))
-                if (eps_r[0] <= 0.05 and eps_l[0] <= 0.05):
+                if (eps_r[0] <= 0.01 and eps_l[0] <= 0.01):
                     flag = 1
     return reflectance, luminance

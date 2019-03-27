@@ -33,7 +33,7 @@ cv2.imwrite(dirNameF + "reflectance0" + str(imgName) + ".bmp", (reflectance_fina
 ############################################################################
 ##                     同じディレクトリにあるファイル                     ##
 ############################################################################
-from dog_vf import *
+from variational_retinex import *
 from shrink import *
 from guidedfilter import *
 from gradient_fusion import *
@@ -53,7 +53,7 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ##                         Variational Retinex Model                      ##
     ############################################################################
     channel = len(v.shape)
-    v_reflectance, luminance = variationalRetinex(v, 0.01, 0.01, 1.0, imgName, dirNameR, dirNameL)
+    #v_reflectance, luminance = variationalRetinex(v, 10.0, 0.01, 0.001, imgName, dirNameR, dirNameL, 3)
     np.savetxt("reflectance" + ".csv", v_reflectance, fmt="%0.2f", delimiter=",")
     np.savetxt("luminance" + ".csv", luminance, fmt="%0.2f", delimiter=",")
     cv2.imwrite(dirNameR + "0" + str(imgName) + ".bmp",
@@ -67,10 +67,10 @@ def main(imgName, dirNameF, dirNameR, dirNameL):
     ############################################################################
     ##                         Guided Fusion                                  ##
     ############################################################################
-    guidedImg = (guidedFilter(v.astype(dtype=np.float32) / 255.0, v.astype(dtype=np.float32)/255.0, 7, 0.04) * 255.0).astype(dtype=np.uint8)
+    guidedImg = (guidedFilter(v.astype(dtype=np.float32) / 255.0, v.astype(dtype=np.float32) / 255.0, 8, 0.01) * 255.0).astype(dtype=np.uint8)
     luminance_final = gradientFusion(guidedImg.astype(dtype=np.float32), luminance.astype(dtype=np.float32))
-    reflectance_new = cv2.divide((v).astype(dtype = np.float32), (luminance_final).astype(dtype = np.float32))
-    reflectance_new = np.minimum(1.0, np.maximum(reflectance_new, 0.0))
+    reflectance_new = cv2.divide((v).astype(dtype=np.float32), (luminance_final).astype(dtype=np.float32))
+    #reflectance_new = np.minimum(1.0, np.maximum(reflectance_new, 0.0))
     hsv_reflectance_new = cv2.merge((h, s, (nonLinearStretch(luminance_final) * reflectance_new).astype(dtype=np.uint8)))
     reflectance_final = cv2.cvtColor(hsv_reflectance_new, cv2.COLOR_HSV2BGR)
     cv2.imwrite(dirNameF + "reflectance0" + str(imgName) + ".bmp", (reflectance_final).astype(dtype=np.uint8))
