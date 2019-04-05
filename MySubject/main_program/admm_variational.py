@@ -15,6 +15,7 @@ from guidedfilter import *          # Weighted Guided Filter関数
 from gradient_fusion import *       # 合成関数
 from createGaussianPyr import *     # 画像ピラミッド関数
 from jnd_threshold import *         # beta計算関数
+from agcwd import *                 # agcwd計算関数
 
 """
 # shrinkage function
@@ -334,7 +335,7 @@ class VariationalRetinex:
 
 def fileRead():
     data = []
-    for file in natsorted(glob.glob('./testdata/Test/LIME/*.bmp')):
+    for file in natsorted(glob.glob('./testdata/BMP/*.bmp')):
         data.append(cv2.imread(file, 1))
     return data
 
@@ -354,14 +355,19 @@ if __name__=='__main__':
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         h, s, v = cv2.split(hsv)
         # Variational Retinex
-        reflectance, illumination = VariationalRetinex(v, 1000, 0.01, 0.1, 10., 4).admm_variational()
+        reflectance, illumination = VariationalRetinex(v, 1000, 0.01, 0.1, 10., 3).pyramid_admm_variational()
         cv2.imwrite("result/reflectance/0" + str(count) + ".bmp",
                     (255.0 * reflectance).astype(dtype=np.uint8))
-        cv2.imwrite("result/illumination/0" + str(count) + ".bmp", (illumination).astype(dtype=np.uint8))
+        cv2.imwrite("result/illumination/conv0" + str(count) + ".bmp", (illumination).astype(dtype=np.uint8))
         # RGB変換
+        illumination_final = agcwd(illumination.astype(dtype=np.uint8))
+        cv2.imwrite("result/illumination/0" + str(count) + ".bmp", (illumination_final).astype(dtype=np.uint8))
         hsv = cv2.merge((h, s, (cleary(nonLinearStretch(illumination).astype(dtype=np.uint8)) * reflectance).astype(dtype=np.uint8)))
+        prop_hsv = cv2.merge((h, s, (illumination_final * reflectance).astype(dtype=np.uint8)))
         output = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-        cv2.imwrite("result/proposal/0" + str(count) + ".bmp", (output).astype(dtype=np.uint8))
+        prop_output = cv2.cvtColor(prop_hsv, cv2.COLOR_HSV2BGR)
+        cv2.imwrite("result/proposal/0" + str(count) + ".bmp", (prop_output).astype(dtype=np.uint8))
+        cv2.imwrite("result/proposal/conv0" + str(count) + ".bmp", (output).astype(dtype=np.uint8))
         #plt.imshow(cv2.cvtColor(output, cv2.COLOR_BGR2RGB))
         #plt.show()
         elapsed_time = time.time() - start
