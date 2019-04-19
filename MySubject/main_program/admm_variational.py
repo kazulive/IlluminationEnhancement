@@ -210,7 +210,7 @@ class VariationalRetinex:
 
             # Step 3
             # errorを求める
-            b_h, b_v = self.diff(bh_prev, bv_prev, dh, dv, reflectance)
+            bh, bv = self.diff(bh_prev, bv_prev, dh, dv, reflectance)
 
             # Step 4
             # 分子・分母の計算
@@ -355,7 +355,7 @@ if __name__=='__main__':
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         h, s, v = cv2.split(hsv)
         # Variational Retinex
-        reflectance, illumination = VariationalRetinex(v, 1000, 0.01, 0.1, 10., 3).pyramid_admm_variational()
+        reflectance, illumination = VariationalRetinex(v, 1000, 0.01, 0.1, 10., 3).admm_variational()
         cv2.imwrite("result/reflectance/0" + str(count) + ".bmp",
                     (255.0 * reflectance).astype(dtype=np.uint8))
         cv2.imwrite("result/illumination/conv0" + str(count) + ".bmp", (illumination).astype(dtype=np.uint8))

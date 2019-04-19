@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 
 imgName = input('input image name : ')
 # 入力画像を読み込み
-img = cv2.imread("testdata/BMP/0" + imgName + ".bmp")
+img = cv2.imread("testdata/BMP/" + imgName + ".bmp")
 
 b, g, r = img[:, :, 0], img[:, :, 1], img[:, :, 2]
 
@@ -24,8 +24,8 @@ plt.xlim(0, 255)
 plt.plot(hist_r, "-r", label="Red")
 plt.plot(hist_g, "-g", label="Green")
 plt.plot(hist_b, "-b", label="Blue")
-plt.xlabel("Pixel value", fontsize=20)
-plt.ylabel("Number of pixels", fontsize=20)
+plt.xlabel("Pixel value", fontsize=15)
+plt.ylabel("Number of pixels", fontsize=15)
 plt.legend()
 plt.grid()
 plt.show()

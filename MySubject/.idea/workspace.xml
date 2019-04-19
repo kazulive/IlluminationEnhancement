@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="834779c1-67ff-4f93-8c5c-233fdc957478" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/MySubject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MySubject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/admm_variational.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/admm_variational.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/jnd_threshold.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/jnd_threshold.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/luminance.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/luminance.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/noise_aware_histogram.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/noise_aware_histogram.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/pyramid_speed_time.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/pyramid_speed_time.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_program/calcHist.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_program/calcHist.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,17 +33,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_program/padding.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+            <state relative-caret-position="629">
+              <caret line="37" column="51" selection-start-line="37" selection-start-column="51" selection-end-line="37" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_program/admm_variational.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="362" column="71" lean-forward="true" selection-start-line="362" selection-start-column="71" selection-end-line="362" selection-end-column="71" />
+            <state relative-caret-position="3955">
+              <caret line="311" column="77" selection-start-line="311" selection-start-column="77" selection-end-line="311" selection-end-column="77" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -77,6 +78,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main_program/jnd_threshold.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test_program/calcHist.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_program/agcwd.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
@@ -103,10 +122,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/guidedfilter.py" />
-        <option value="$PROJECT_DIR$/brightChannel.py" />
-        <option value="$PROJECT_DIR$/devision.py" />
-        <option value="$PROJECT_DIR$/retinex.py" />
         <option value="$PROJECT_DIR$/derived.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/main program/__init__.py" />
@@ -140,7 +155,6 @@
         <option value="$PROJECT_DIR$/main_program/weight_map.py" />
         <option value="$PROJECT_DIR$/main_program/multi_fusion.py" />
         <option value="$PROJECT_DIR$/main_program/gradient_fusion.py" />
-        <option value="$PROJECT_DIR$/test_program/calcHist.py" />
         <option value="$PROJECT_DIR$/main_program/shrink.py" />
         <option value="$PROJECT_DIR$/test_program/test.py" />
         <option value="$PROJECT_DIR$/conv_program/main.py" />
@@ -151,17 +165,22 @@
         <option value="$PROJECT_DIR$/main_program/padding.py" />
         <option value="$PROJECT_DIR$/main_program/dog_vf.py" />
         <option value="$PROJECT_DIR$/main_program/main.py" />
-        <option value="$PROJECT_DIR$/main_program/noise_aware_histogram.py" />
         <option value="$PROJECT_DIR$/main_program/agcwd.py" />
         <option value="$PROJECT_DIR$/main_program/admm_variational.py" />
+        <option value="$PROJECT_DIR$/main_program/testdata/extract_structure.py" />
+        <option value="$PROJECT_DIR$/main_program/__init__.py" />
+        <option value="$PROJECT_DIR$/main_program/extract_structure.py" />
+        <option value="$PROJECT_DIR$/main_program/noise_aware_histogram.py" />
+        <option value="$PROJECT_DIR$/main_program/jnd_threshold.py" />
+        <option value="$PROJECT_DIR$/test_program/calcHist.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1696" />
-    <option name="height" value="1026" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -185,7 +204,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -198,10 +216,22 @@
               <item name="MySubject" type="462c0819:PsiDirectoryNode" />
               <item name="main_program" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MySubject" type="462c0819:PsiDirectoryNode" />
+              <item name="main_program" type="462c0819:PsiDirectoryNode" />
+              <item name="testdata" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MySubject" type="462c0819:PsiDirectoryNode" />
+              <item name="test_program" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -209,6 +239,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.23138034" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\kazulive\github\IlluminationEnhancement\MySubject\main_program\" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -359,9 +394,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1696" height="1026" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28166467" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24604847" />
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info id="Structure" order="2" weight="0.24969843" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -373,7 +408,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.51197916" side_tool="true" weight="0.40933192" />
       <window_info anchor="bottom" id="Python Console" order="8" />
-      <window_info anchor="bottom" x="1068" y="567" width="787" height="301" id="Terminal" order="9" sideWeight="0.48802084" visible="true" weight="0.43896976" />
+      <window_info active="true" anchor="bottom" x="1068" y="567" width="787" height="301" id="Terminal" order="9" sideWeight="0.48802084" visible="true" weight="0.42470205" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -491,6 +526,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/pyramid_speed_time.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main_program/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="986">
@@ -503,17 +545,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_program/padding.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+        <state relative-caret-position="629">
+          <caret line="37" column="51" selection-start-line="37" selection-start-column="51" selection-end-line="37" selection-end-column="51" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/noise_aware_histogram.py">
+    <entry file="file://$PROJECT_DIR$/main_program/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="17">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/clahe.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/extract_structure.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="36" column="39" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/admm_variational.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3955">
+          <caret line="311" column="77" selection-start-line="311" selection-start-column="77" selection-end-line="311" selection-end-column="77" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -535,23 +600,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/clahe.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/pyramid_speed_time.csv">
+    <entry file="file://$PROJECT_DIR$/main_program/noise_aware_histogram.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="221">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/admm_variational.py">
+    <entry file="file://$PROJECT_DIR$/main_program/jnd_threshold.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="362" column="71" lean-forward="true" selection-start-line="362" selection-start-column="71" selection-end-line="362" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="306">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_program/calcHist.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
         </state>
       </provider>
     </entry>
