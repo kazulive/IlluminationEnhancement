@@ -4,10 +4,9 @@
     <list default="true" id="834779c1-67ff-4f93-8c5c-233fdc957478" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/admm_variational.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/admm_variational.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/jnd_threshold.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/jnd_threshold.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/luminance.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/luminance.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/noise_aware_histogram.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/noise_aware_histogram.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/pyramid_speed_time.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/pyramid_speed_time.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slide/2019_04_25/2019_04_25_栗原.pptx" beforeDir="false" afterPath="$PROJECT_DIR$/slide/2019_04_25/2019_04_25_栗原.pptx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_program/calcHist.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_program/calcHist.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,19 +32,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_program/padding.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="37" column="51" selection-start-line="37" selection-start-column="51" selection-end-line="37" selection-end-column="51" />
+            <state relative-caret-position="275">
+              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main_program/admm_variational.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main_program/LLIE.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3955">
-              <caret line="311" column="77" selection-start-line="311" selection-start-column="77" selection-end-line="311" selection-end-column="77" />
+            <state relative-caret-position="607">
+              <caret line="72" column="27" lean-forward="true" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#0#10#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -68,7 +67,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_program/noise_aware_histogram.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
+            <state relative-caret-position="204">
               <caret line="13" selection-start-line="13" selection-end-line="13" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -86,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test_program/calcHist.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+            <state relative-caret-position="119">
+              <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -122,7 +121,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/derived.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/main program/__init__.py" />
         <option value="$PROJECT_DIR$/main program/guidedfilter.py" />
@@ -166,21 +164,22 @@
         <option value="$PROJECT_DIR$/main_program/dog_vf.py" />
         <option value="$PROJECT_DIR$/main_program/main.py" />
         <option value="$PROJECT_DIR$/main_program/agcwd.py" />
-        <option value="$PROJECT_DIR$/main_program/admm_variational.py" />
         <option value="$PROJECT_DIR$/main_program/testdata/extract_structure.py" />
         <option value="$PROJECT_DIR$/main_program/__init__.py" />
         <option value="$PROJECT_DIR$/main_program/extract_structure.py" />
         <option value="$PROJECT_DIR$/main_program/noise_aware_histogram.py" />
         <option value="$PROJECT_DIR$/main_program/jnd_threshold.py" />
         <option value="$PROJECT_DIR$/test_program/calcHist.py" />
+        <option value="$PROJECT_DIR$/main_program/admm_variational.py" />
+        <option value="$PROJECT_DIR$/main_program/LLIE.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="2406" />
+    <option name="y" value="-17" />
+    <option name="width" value="1696" />
+    <option name="height" value="1026" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -226,6 +225,12 @@
               <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
               <item name="MySubject" type="462c0819:PsiDirectoryNode" />
               <item name="test_program" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MySubject" type="462c0819:PsiDirectoryNode" />
+              <item name="test_program" type="462c0819:PsiDirectoryNode" />
+              <item name="testdata" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -394,9 +399,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="1912" y="-8" width="1696" height="1026" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24604847" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.24509804" />
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info id="Structure" order="2" weight="0.24969843" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -408,7 +413,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.51197916" side_tool="true" weight="0.40933192" />
       <window_info anchor="bottom" id="Python Console" order="8" />
-      <window_info active="true" anchor="bottom" x="1068" y="567" width="787" height="301" id="Terminal" order="9" sideWeight="0.48802084" visible="true" weight="0.42470205" />
+      <window_info anchor="bottom" x="1068" y="567" width="787" height="301" id="Terminal" order="9" sideWeight="0.48802084" weight="0.42873302" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -533,23 +538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="61" column="93" selection-start-line="61" selection-start-column="93" selection-end-line="61" selection-end-column="93" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/padding.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="51" selection-start-line="37" selection-start-column="51" selection-end-line="37" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main_program/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -559,9 +547,6 @@
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/clahe.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/main_program/extract_structure.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -573,22 +558,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/admm_variational.py">
+    <entry file="file://$PROJECT_DIR$/main_program/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3955">
-          <caret line="311" column="77" selection-start-line="311" selection-start-column="77" selection-end-line="311" selection-end-column="77" />
+        <state relative-caret-position="986">
+          <caret line="61" column="93" selection-start-line="61" selection-start-column="93" selection-end-line="61" selection-end-column="93" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/agcwd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="157" selection-start-line="13" selection-start-column="157" selection-end-line="13" selection-end-column="157" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#23#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -602,7 +577,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_program/noise_aware_histogram.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
+        <state relative-caret-position="204">
           <caret line="13" selection-start-line="13" selection-end-line="13" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -619,8 +594,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_program/calcHist.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+        <state relative-caret-position="119">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/clahe.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/agcwd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="157" selection-start-line="13" selection-start-column="157" selection-end-line="13" selection-end-column="157" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/padding.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/admm_variational.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="325" column="26" lean-forward="true" selection-start-line="325" selection-start-column="26" selection-end-line="325" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/LLIE.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="607">
+          <caret line="72" column="27" lean-forward="true" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

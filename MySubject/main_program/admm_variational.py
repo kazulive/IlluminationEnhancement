@@ -114,7 +114,8 @@ kernel = np.array([[0, 0, 0],
 avg_kernel = np.ones((5, 5), np.float32) / 25.
 
 class VariationalRetinex:
-    def __init__(self, image, alpha, beta, gamma, lam, pyr_num):
+    def __init__(self, img, image, alpha, beta, gamma, lam, pyr_num):
+        self.init = np.sqrt(img[:,:,0]**2 + img[:,:,1]**2 + img[:,:,2]**2)
         self.img = image
         self.alpha = alpha
         self.beta = beta
@@ -166,7 +167,7 @@ class VariationalRetinex:
         # 配列用意
         H, W = self.img.shape[:2]
         reflectance = np.zeros((H, W), dtype=np.float32)                            # 反射画像              => (W, H, 1) float32型
-        illumination = cv2.GaussianBlur(self.img, (5, 5), 2.0)                      # 照明画像              => (W, H, 1) float32型
+        illumination = self.init#cv2.GaussianBlur(self.img, (5, 5), 2.0)            # 照明画像              => (W, H, 1) float32型
         dh = np.zeros((H, W), dtype=np.float32)                                     # 補助変数 d_horizontal => (W, H, 1) float32型
         dv = np.zeros((H, W), dtype=np.float32)                                     # 補助変数 d_vertical   => (W, H, 1) float32型
         bh = np.zeros((H, W), dtype=np.float32)                                     # 誤差 b_horizontal     => (W, H, 1) float32型
@@ -355,18 +356,18 @@ if __name__=='__main__':
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         h, s, v = cv2.split(hsv)
         # Variational Retinex
-        reflectance, illumination = VariationalRetinex(v, 1000, 0.01, 0.1, 10., 3).admm_variational()
+        reflectance, illumination = VariationalRetinex(img, v, 1000, 0.01, 0.1, 10., 3).admm_variational()
         cv2.imwrite("result/reflectance/0" + str(count) + ".bmp",
                     (255.0 * reflectance).astype(dtype=np.uint8))
         cv2.imwrite("result/illumination/conv0" + str(count) + ".bmp", (illumination).astype(dtype=np.uint8))
         # RGB変換
-        illumination_final = agcwd(illumination.astype(dtype=np.uint8))
-        cv2.imwrite("result/illumination/0" + str(count) + ".bmp", (illumination_final).astype(dtype=np.uint8))
+        #illumination_final = agcwd(illumination.astype(dtype=np.uint8))
+        #cv2.imwrite("result/illumination/0" + str(count) + ".bmp", (illumination_final).astype(dtype=np.uint8))
         hsv = cv2.merge((h, s, (cleary(nonLinearStretch(illumination).astype(dtype=np.uint8)) * reflectance).astype(dtype=np.uint8)))
-        prop_hsv = cv2.merge((h, s, (illumination_final * reflectance).astype(dtype=np.uint8)))
+        #prop_hsv = cv2.merge((h, s, (illumination_final * reflectance).astype(dtype=np.uint8)))
         output = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-        prop_output = cv2.cvtColor(prop_hsv, cv2.COLOR_HSV2BGR)
-        cv2.imwrite("result/proposal/0" + str(count) + ".bmp", (prop_output).astype(dtype=np.uint8))
+        #prop_output = cv2.cvtColor(prop_hsv, cv2.COLOR_HSV2BGR)
+        #cv2.imwrite("result/proposal/0" + str(count) + ".bmp", (prop_output).astype(dtype=np.uint8))
         cv2.imwrite("result/proposal/conv0" + str(count) + ".bmp", (output).astype(dtype=np.uint8))
         #plt.imshow(cv2.cvtColor(output, cv2.COLOR_BGR2RGB))
         #plt.show()

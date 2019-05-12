@@ -5,7 +5,9 @@ from matplotlib import pyplot as plt
 
 imgName = input('input image name : ')
 # 入力画像を読み込み
-img = cv2.imread("testdata/BMP/" + imgName + ".bmp")
+img = cv2.imread("testdata/" + imgName + ".jpg")
+
+print(np.ravel(img))
 
 b, g, r = img[:, :, 0], img[:, :, 1], img[:, :, 2]
 
