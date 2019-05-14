@@ -28,17 +28,19 @@ class LLIE(object):
 
     # 反射画像を更新
     def get_reflectance(self, img, illumination, N_map, G):
-        tmp1 = np.fft.fft2((img - N_map)/(illumination + 1.0))
+        tmp1 = np.fft.fft2(((img - N_map) / (illumination + 1.0)))
         tmp2 = self.weight * (self.F_conj_h + self.F_conj_v) * np.fft.fft2(G)
 
         return np.real(np.fft.ifft2((tmp1 + tmp2) / (1.0 + self.weight * self.F_div)))
 
     # 照明画像を更新
     def get_illumination(self, img, reflectance, N_map, T, Z, meu):
-        tmp1 = 2.0 * np.fft.fft2((img - N_map)/(np.maximum(reflectance, 0.001)))
-        tmp2 = (self.F_conj_v + self.F_conj_h) * (meu * np.fft.fft2(T) - np.fft.fft2(Z))
+        tmp1 = 2.0 * (img - N_map) / np.maximum(reflectance, 0.4)
+        tmp2 = (T - Z / meu)
+        tmp2 = (cv2.filter2D(tmp2.astype(dtype=np.float32), cv2.CV_32F, self.kernel) + cv2.filter2D(tmp2.astype(dtype=np.float32), cv2.CV_32F, self.kernel.T)) / 2.0
+        tmp = np.fft.fft2(tmp1 + meu * tmp2)
 
-        return np.real(np.fft.ifft2((tmp1 + tmp2) / (2.0 + meu * self.F_div)))
+        return np.real(np.fft.ifft2(tmp / (2.0 + meu * self.F_div)))
 
     # ノイズを更新
     def get_N_map(self, img, reflectance, illumination):
@@ -47,7 +49,7 @@ class LLIE(object):
     # Gを更新
     def get_G(self, img):
         grad_img = (cv2.filter2D(img.astype(dtype=np.float32), cv2.CV_32F, self.kernel) + cv2.filter2D(img.astype(dtype=np.float32), cv2.CV_32F, self.kernel.T)) / 2.0
-        grad_img[np.abs(grad_img) < 2.] = 0.
+        grad_img[np.abs(grad_img) < 10.] = 0.
         K = 1.0 + self.lam * np.exp(-np.abs(grad_img) / self.sigma)
         return K * grad_img
 
@@ -61,7 +63,7 @@ class LLIE(object):
         return Z + meu * (illumianton - T)
 
     # main関数
-    def build(self, img):
+    def main(self, img):
         # 配列の初期化
         reflectance = np.zeros((self.height, self.width), dtype=np.float32)
         illumination = np.copy(img)
@@ -75,19 +77,17 @@ class LLIE(object):
 
         while(k < 5):
             reflectance = self.get_reflectance(img, illumination, N_map, G)
-            reflectance = reflectance.astype(dtype=np.float32)
-            reflectance = np.minimum(1.0, np.maximum(reflectance, 0.0))
-            cv2.imshow("Reflectance", (255 * reflectance).astype(dtype=np.uint8))
-            cv2.waitKey(0)
+            reflectance = np.maximum(0.0, np.minimum(reflectance, 1.0))
+            #cv2.imshow("Reflectance", reflectance)
+            #cv2.waitKey(0)
             illumination = self.get_illumination(img, reflectance, N_map, T, Z, meu)
-            illumination = illumination.astype(dtype=np.float32)
-            cv2.imshow("Illumination", illumination.astype(dtype=np.uint8))
-            cv2.waitKey(0)
-            print(illumination)
+            #cv2.imshow("Illumination", illumination.astype(dtype=np.uint8))
+            #cv2.waitKey(0)
             N_map = self.get_N_map(img, reflectance, illumination)
             grad_illumination = (cv2.filter2D(illumination.astype(dtype=np.float32), cv2.CV_32F, self.kernel) + cv2.filter2D(illumination.astype(dtype=np.float32), cv2.CV_32F, self.kernel.T)) / 2.0
             T = self.get_T(grad_illumination, Z, meu)
             Z = self.get_Z(grad_illumination, T, Z, meu)
+            print(grad_illumination)
             meu *= p
             k += 1
 
@@ -108,11 +108,11 @@ if __name__ == '__main__':
     for img in img_list:
         count += 1
         print('input ' + str(count) + ' image')
-        img = img.astype(dtype=np.float32)
         # HSV変換
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         h, s, v = cv2.split(hsv)
-        reflectance, illumination, noise = LLIE(v, 0.05, 0.01, 1.0, 10, 10).build(v)
+        reflectance, illumination, noise = LLIE(v.astype(dtype=np.float32), 0.01, 0.01, 10, 5, 10).main(v)
         #illumination = gamma_correction(illumination, 2.2)
-        cv2.imshow("Output", (illumination * reflectance).astype(dtype=np.uint8))
+        output = cv2.merge((h, s, (reflectance * illumination).astype(dtype=np.uint8)))
+        cv2.imshow("Output", output)
         cv2.waitKey(0)

@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="834779c1-67ff-4f93-8c5c-233fdc957478" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/LLIE.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/LLIE.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/testdata/BMP/01.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/testdata/BMP/02.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/testdata/BMP/03.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/testdata/BMP/04.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/testdata/BMP/05.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/testdata/BMP/06.bmp" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +28,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_program/padding.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
+            <state relative-caret-position="-98">
               <caret line="30" selection-start-line="30" selection-end-line="30" />
             </state>
           </provider>
@@ -42,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main_program/LLIE.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="37" column="77" selection-start-line="37" selection-start-column="77" selection-end-line="37" selection-end-column="77" />
+            <state relative-caret-position="306">
+              <caret line="112" column="32" lean-forward="true" selection-start-line="112" selection-start-column="32" selection-end-line="112" selection-end-column="32" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -177,10 +172,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2406" />
-    <option name="y" value="-17" />
-    <option name="width" value="1696" />
-    <option name="height" value="1026" />
+    <option name="x" value="258" />
+    <option name="y" value="-26" />
+    <option name="width" value="1484" />
+    <option name="height" value="996" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -400,8 +395,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1696" height="1026" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24509804" />
       <window_info id="Favorites" order="1" side_tool="true" />
@@ -415,7 +409,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.51197916" side_tool="true" weight="0.40933192" />
       <window_info anchor="bottom" id="Python Console" order="8" />
-      <window_info active="true" anchor="bottom" x="1068" y="567" width="787" height="301" id="Terminal" order="9" sideWeight="0.48802084" visible="true" weight="0.42777157" />
+      <window_info active="true" anchor="bottom" x="1068" y="567" width="787" height="301" id="Terminal" order="9" sideWeight="0.48802084" visible="true" weight="0.41386783" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -580,13 +574,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/padding.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main_program/clahe.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -631,10 +618,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/padding.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-98">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main_program/LLIE.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="37" column="77" selection-start-line="37" selection-start-column="77" selection-end-line="37" selection-end-column="77" />
+        <state relative-caret-position="306">
+          <caret line="112" column="32" lean-forward="true" selection-start-line="112" selection-start-column="32" selection-end-line="112" selection-end-column="32" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
