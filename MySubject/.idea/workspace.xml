@@ -4,6 +4,15 @@
     <list default="true" id="834779c1-67ff-4f93-8c5c-233fdc957478" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/LLIE.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/LLIE.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/admm_variational.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/srie.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/luminance.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/luminance.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/pyramid_speed_time.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/pyramid_speed_time.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/testdata/01.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/testdata/02.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/testdata/03.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/testdata/04.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/testdata/05.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/testdata/06.bmp" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +25,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_program/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="986">
+            <state relative-caret-position="429">
               <caret line="61" column="93" selection-start-line="61" selection-start-column="93" selection-end-line="61" selection-end-column="93" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
@@ -26,9 +35,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main_program/srie.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" selection-start-line="11" selection-end-line="12" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_program/padding.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-98">
+            <state relative-caret-position="429">
               <caret line="30" selection-start-line="30" selection-end-line="30" />
             </state>
           </provider>
@@ -37,8 +55,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main_program/LLIE.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="112" column="32" lean-forward="true" selection-start-line="112" selection-start-column="32" selection-end-line="112" selection-end-column="32" />
+            <state relative-caret-position="663">
+              <caret line="123" column="54" lean-forward="true" selection-start-line="123" selection-start-column="54" selection-end-line="123" selection-end-column="54" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -172,10 +190,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="258" />
-    <option name="y" value="-26" />
-    <option name="width" value="1484" />
-    <option name="height" value="996" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -198,42 +216,7 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MySubject" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MySubject" type="462c0819:PsiDirectoryNode" />
-              <item name="main_program" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MySubject" type="462c0819:PsiDirectoryNode" />
-              <item name="main_program" type="462c0819:PsiDirectoryNode" />
-              <item name="testdata" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MySubject" type="462c0819:PsiDirectoryNode" />
-              <item name="test_program" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MySubject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MySubject" type="462c0819:PsiDirectoryNode" />
-              <item name="test_program" type="462c0819:PsiDirectoryNode" />
-              <item name="testdata" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -396,6 +379,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24509804" />
       <window_info id="Favorites" order="1" side_tool="true" />
@@ -554,26 +538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/admm_variational.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="325" column="26" lean-forward="true" selection-start-line="325" selection-start-column="26" selection-end-line="325" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main_program/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="61" column="93" selection-start-line="61" selection-start-column="93" selection-end-line="61" selection-end-column="93" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main_program/clahe.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -618,17 +582,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="61" column="93" selection-start-line="61" selection-start-column="93" selection-end-line="61" selection-end-column="93" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main_program/padding.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-98">
+        <state relative-caret-position="429">
           <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_program/srie.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" selection-start-line="11" selection-end-line="12" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main_program/LLIE.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="112" column="32" lean-forward="true" selection-start-line="112" selection-start-column="32" selection-end-line="112" selection-end-column="32" />
+        <state relative-caret-position="663">
+          <caret line="123" column="54" lean-forward="true" selection-start-line="123" selection-start-column="54" selection-end-line="123" selection-end-column="54" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

@@ -5,6 +5,8 @@ import time
 from natsort import natsorted
 
 from padding import *
+from clahe import *                 # CLAHE関数
+from shrink import *                # shrinkage関数
 
 class LLIE(object):
     def __init__(self, img, beta, weight, delta, lam, sigma):
@@ -35,12 +37,10 @@ class LLIE(object):
 
     # 照明画像を更新
     def get_illumination(self, img, reflectance, N_map, T, Z, meu):
-        tmp1 = 2.0 * (img - N_map) / np.maximum(reflectance, 0.4)
-        tmp2 = (T - Z / meu)
-        tmp2 = (cv2.filter2D(tmp2.astype(dtype=np.float32), cv2.CV_32F, self.kernel) + cv2.filter2D(tmp2.astype(dtype=np.float32), cv2.CV_32F, self.kernel.T)) / 2.0
-        tmp = np.fft.fft2(tmp1 + meu * tmp2)
+        tmp1 = np.fft.fft2(2.0 * (img - N_map) / (np.maximum(reflectance, 0.3)))
+        tmp2 = meu * (self.F_conj_v + self.F_conj_h) * np.fft.fft2(T - Z / meu)
 
-        return np.real(np.fft.ifft2(tmp / (2.0 + meu * self.F_div)))
+        return np.real(np.fft.ifft2((tmp1 + tmp2) / (2.0 + meu * self.F_div)))
 
     # ノイズを更新
     def get_N_map(self, img, reflectance, illumination):
@@ -48,8 +48,9 @@ class LLIE(object):
 
     # Gを更新
     def get_G(self, img):
-        grad_img = (cv2.filter2D(img.astype(dtype=np.float32), cv2.CV_32F, self.kernel) + cv2.filter2D(img.astype(dtype=np.float32), cv2.CV_32F, self.kernel.T)) / 2.0
-        grad_img[np.abs(grad_img) < 10.] = 0.
+        grad_img = (cv2.filter2D((img/255.0).astype(dtype=np.float32), cv2.CV_32F, self.kernel) + cv2.filter2D((img/255.0).astype(dtype=np.float32), cv2.CV_32F, self.kernel.T)) / 2.0
+        print(np.min(grad_img))
+        grad_img[np.abs(grad_img) < 0.4] = 0.
         K = 1.0 + self.lam * np.exp(-np.abs(grad_img) / self.sigma)
         return K * grad_img
 
@@ -78,23 +79,28 @@ class LLIE(object):
         while(k < 5):
             reflectance = self.get_reflectance(img, illumination, N_map, G)
             reflectance = np.maximum(0.0, np.minimum(reflectance, 1.0))
-            #cv2.imshow("Reflectance", reflectance)
             #cv2.waitKey(0)
             illumination = self.get_illumination(img, reflectance, N_map, T, Z, meu)
-            #cv2.imshow("Illumination", illumination.astype(dtype=np.uint8))
-            #cv2.waitKey(0)
+            illumination = np.clip(illumination, 0., 255.)
+            illumination = np.fix(illumination).astype(dtype=np.float32)
             N_map = self.get_N_map(img, reflectance, illumination)
-            grad_illumination = (cv2.filter2D(illumination.astype(dtype=np.float32), cv2.CV_32F, self.kernel) + cv2.filter2D(illumination.astype(dtype=np.float32), cv2.CV_32F, self.kernel.T)) / 2.0
+            grad_illumination = (cv2.filter2D((illumination/255.0).astype(dtype=np.float32), cv2.CV_32F, self.kernel) + cv2.filter2D((illumination/255.0).astype(dtype=np.float32), cv2.CV_32F, self.kernel.T)) / 2.0
             T = self.get_T(grad_illumination, Z, meu)
             Z = self.get_Z(grad_illumination, T, Z, meu)
-            print(grad_illumination)
+            #cv2.imshow("Reflectance", reflectance)
+            #cv2.imshow("Illumination", illumination.astype(dtype=np.uint8))
+            #cv2.imshow("Noise_Map", N_map)
+            #cv2.waitKey(0)
             meu *= p
             k += 1
 
         return reflectance, illumination, N_map
 
 def gamma_correction(img, gamma):
-    return illumination ** (1. / gamma)
+    output = (img.astype(dtype=np.float32) / 255.0) ** (1. / gamma) * 255.
+    output = np.clip(output, 0, 255)
+    output = np.fix(output).astype(dtype=np.uint8)
+    return output
 
 def fileRead():
     data = []
@@ -111,8 +117,13 @@ if __name__ == '__main__':
         # HSV変換
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         h, s, v = cv2.split(hsv)
-        reflectance, illumination, noise = LLIE(v.astype(dtype=np.float32), 0.01, 0.01, 10, 5, 10).main(v)
+        reflectance, illumination, noise = LLIE(v, 0.01, 0.01, 100.0, 5, 10).main(v)
         #illumination = gamma_correction(illumination, 2.2)
-        output = cv2.merge((h, s, (reflectance * illumination).astype(dtype=np.uint8)))
-        cv2.imshow("Output", output)
-        cv2.waitKey(0)
+        result = cleary(nonLinearStretch(illumination).astype(dtype=np.uint8)) * reflectance
+        result = np.clip(result, 0.0, 255.0)
+        result = np.fix(result).astype(dtype=np.uint8)
+        output = cv2.merge((h, s, result))
+        output = cv2.cvtColor(output, cv2.COLOR_HSV2BGR)
+        cv2.imwrite("result/llie_result/ouput0" + str(count) + ".bmp", output)
+        #cv2.imshow("Output", output.astype(dtype=np.uint8))
+        #cv2.waitKey(0)

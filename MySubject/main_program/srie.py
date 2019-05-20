@@ -113,7 +113,7 @@ kernel = np.array([[0, 0, 0],
 # 平均値画像カーネル
 avg_kernel = np.ones((5, 5), np.float32) / 25.
 
-class VariationalRetinex:
+class SRIE:
     def __init__(self, img, image, alpha, beta, gamma, lam, pyr_num):
         self.init = np.sqrt(img[:,:,0]**2 + img[:,:,1]**2 + img[:,:,2]**2)
         self.img = image
@@ -163,7 +163,7 @@ class VariationalRetinex:
 
         return new_bh, new_bv
 
-    def admm_variational(self):
+    def srie(self):
         # 配列用意
         H, W = self.img.shape[:2]
         reflectance = np.zeros((H, W), dtype=np.float32)                            # 反射画像              => (W, H, 1) float32型
@@ -239,7 +239,7 @@ class VariationalRetinex:
 
         return reflectance, illumination
 
-    def pyramid_admm_variational(self):
+    def pyramid_srie(self):
         # 画像ピラミッド生成
         imgPyr = createGaussianPyr(self.img, self.pyr_num)
         for i in range(self.pyr_num - 1, -1, -1):
@@ -356,7 +356,7 @@ if __name__=='__main__':
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         h, s, v = cv2.split(hsv)
         # Variational Retinex
-        reflectance, illumination = VariationalRetinex(img, v, 1000, 0.01, 0.1, 10., 3).admm_variational()
+        reflectance, illumination = SRIE(img, v, 1000, 0.01, 0.1, 10., 3).srie()
         cv2.imwrite("result/reflectance/0" + str(count) + ".bmp",
                     (255.0 * reflectance).astype(dtype=np.uint8))
         cv2.imwrite("result/illumination/conv0" + str(count) + ".bmp", (illumination).astype(dtype=np.uint8))
